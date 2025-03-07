@@ -8,6 +8,16 @@ namespace TicketMaster.Domain.Entities
 {
     public class Movie
     {
+        public Movie(string? title, string? director, DateTime releaseDate, string? description, string? genre)
+        {
+            Title = title;
+            Director = director;
+            ReleaseDate = releaseDate;
+            Active = true;
+            Description = description;
+            Genre = genre;
+        }
+
         public int Id { get; private set; }
         public string? Title { get; private set; }
         public string? Director { get; private set; }

@@ -9,14 +9,17 @@ namespace TicketMaster.Domain.ValueObjects
 {
     public record Address
     {
-        public Address(string street, string city, string state, string country)
+        public Address(string street, string city, string state, string country, string? reference)
         {
             Street = street;
             City = city;
             State = state;
             Country = country;
+            Reference = reference;
         }
 
+
+        public string? Reference { get; private set; }
         [Required]
         public string Street { get; private set; }
         [Required]
