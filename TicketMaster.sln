@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketMaster.API", "TicketMaster.API\TicketMaster.API.csproj", "{F3F0A3E9-C2B5-4F1D-8499-5F8426352757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketMaster.API", "TicketMaster.API\TicketMaster.API.csproj", "{F3F0A3E9-C2B5-4F1D-8499-5F8426352757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketMaster.Domain", "TicketMaster.Domain\TicketMaster.Domain.csproj", "{CD3F43A0-EAC6-488C-B325-D9AC05B41B4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketMaster.Domain", "TicketMaster.Domain\TicketMaster.Domain.csproj", "{CD3F43A0-EAC6-488C-B325-D9AC05B41B4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketMaster.Application", "TicketMaster.Application\TicketMaster.Application.csproj", "{0A90BA23-20D6-4460-892C-4248F5BB64EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CD3F43A0-EAC6-488C-B325-D9AC05B41B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD3F43A0-EAC6-488C-B325-D9AC05B41B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD3F43A0-EAC6-488C-B325-D9AC05B41B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A90BA23-20D6-4460-892C-4248F5BB64EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A90BA23-20D6-4460-892C-4248F5BB64EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A90BA23-20D6-4460-892C-4248F5BB64EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A90BA23-20D6-4460-892C-4248F5BB64EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
