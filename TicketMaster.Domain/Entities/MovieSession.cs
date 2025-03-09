@@ -22,7 +22,7 @@ namespace TicketMaster.Domain.Entities
         public DateTime SessionTime { get; private set; }
         public int TotalSeats { get; private set; }
         public int ReservedSeats { get; private set; }
-        public bool Available => TotalSeats > ReservedSeats;
+        public bool Available => TotalSeats > ReservedSeats && SessionTime > DateTime.Now;
 
         // add validation
         public void AddReservedSeats(int reservedSeats)

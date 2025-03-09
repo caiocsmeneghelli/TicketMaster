@@ -23,5 +23,13 @@ namespace TicketMaster.API.Controllers
             var result = await _mediatr.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("active")]
+        public async Task<IActionResult> GetAllActives([FromQuery]string? query)
+        {
+            // buscar MovieTheaters com status Ativo
+            if(query is not null) { return Ok(query); }
+            return Ok();
+        }
     }
 }
