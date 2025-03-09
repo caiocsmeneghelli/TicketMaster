@@ -23,9 +23,9 @@ namespace TicketMaster.API.Controllers
         }
 
         [HttpGet("active/by-date")]
-        public async Task<IActionResult> GetAllActiveByDate([FromQuery]DateTime date)
+        public async Task<IActionResult> GetAllActiveByDate([FromQuery]DateTime date, int idMovie)
         {
-            // retorna todas sessoes por dia
+            // retorna todas sessoes por dia e por filme
             return Ok(date);
         }
     }

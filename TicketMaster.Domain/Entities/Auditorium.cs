@@ -10,5 +10,6 @@ namespace TicketMaster.Domain.Entities
     {
         public int Id { get; private set; }
         public string? Name { get; private set; }
+        public int IdTheater { get; set; }
     }
 }
