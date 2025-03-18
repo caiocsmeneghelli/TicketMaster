@@ -7,7 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketMaster.API", "TicketM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketMaster.Domain", "TicketMaster.Domain\TicketMaster.Domain.csproj", "{CD3F43A0-EAC6-488C-B325-D9AC05B41B4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketMaster.Application", "TicketMaster.Application\TicketMaster.Application.csproj", "{0A90BA23-20D6-4460-892C-4248F5BB64EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketMaster.Application", "TicketMaster.Application\TicketMaster.Application.csproj", "{0A90BA23-20D6-4460-892C-4248F5BB64EC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD3F43A0-EAC6-488C-B325-D9AC05B41B4E} = {CD3F43A0-EAC6-488C-B325-D9AC05B41B4E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
