@@ -8,17 +8,19 @@ namespace TicketMaster.Domain.Entities
 {
     public class MovieSession
     {
-        public MovieSession(int idMovieTheater, int idAuditorium, DateTime sessionTime, int totalSeats)
+        public MovieSession(int idMovie, int idAuditorium, DateTime sessionTime, int totalSeats)
         {
-            IdMovieTheater = idMovieTheater;
+            IdMovie = idMovie;
             IdAuditorium = idAuditorium;
             SessionTime = sessionTime;
             TotalSeats = totalSeats;
         }
 
         public int Id { get; private set; }
-        public int IdMovieTheater { get; private set; }
+        public int IdMovie { get; private set; }
+        public Movie Movie { get; private set; }
         public int IdAuditorium { get; private set; }
+        public Auditorium Auditorium { get; private set; }
         public DateTime SessionTime { get; private set; }
         public int TotalSeats { get; private set; }
         public int ReservedSeats { get; private set; }

@@ -25,5 +25,6 @@ namespace TicketMaster.Domain.Entities
         public bool Active { get; private set; }
         public string? Description { get; private set; }
         public string? Genre { get; private set; }
+        public List<MovieSession> MovieSessions { get; private set; }
     }
 }

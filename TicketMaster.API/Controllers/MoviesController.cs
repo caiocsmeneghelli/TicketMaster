@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Application.Queies.Movies.GetAll;
+using TicketMaster.Application.Queies.Movies.GetAllActive;
 
 namespace TicketMaster.API.Controllers
 {
@@ -25,11 +26,11 @@ namespace TicketMaster.API.Controllers
         }
 
         [HttpGet("active")]
-        public async Task<IActionResult> GetAllActives([FromQuery]string? query)
+        public async Task<IActionResult> GetAllActives([FromQuery]string? name)
         {
-            // buscar MovieTheaters com status Ativo
-            if(query is not null) { return Ok(query); }
-            return Ok();
+            var query = new GetAllMoviesActiveQuery(name);
+            var result = await _mediatr.Send(query);
+            return Ok(result);
         }
     }
 }

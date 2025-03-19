@@ -10,6 +10,6 @@ namespace TicketMaster.Domain.Repositories
     public interface IMovieRepository
     {
         Task<List<Movie>> GetAllAsync();
-        Task<List<Movie>> GetAllActiveAsync();
+        Task<List<Movie>> GetAllActiveAsync(string? query);
     }
 }
