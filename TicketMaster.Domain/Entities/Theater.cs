@@ -12,5 +12,6 @@ namespace TicketMaster.Domain.Entities
         public string? Name { get; private set; }
         public string? Address { get; private set; }
         public string? Contact { get; private set; }
+        public List<Auditorium> Auditoriums { get; private set; }
     }
 }

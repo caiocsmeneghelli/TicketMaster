@@ -9,16 +9,16 @@ using TicketMaster.Domain.Entities;
 
 namespace TicketMaster.Infrastructure.Persistence.Configurations
 {
-    public class MovieConfiguration : IEntityTypeConfiguration<Movie>
+    public class AuditoriumConfiguration : IEntityTypeConfiguration<Auditorium>
     {
-        public void Configure(EntityTypeBuilder<Movie> builder)
+        public void Configure(EntityTypeBuilder<Auditorium> builder)
         {
             builder.HasKey(reg => reg.Id);
 
             builder.HasMany(reg => reg.MovieSessions)
-                .WithOne(ms => ms.Movie)
-                .HasForeignKey(m => m.IdMovie)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne(ms => ms.Auditorium)
+                .HasForeignKey(ms => ms.IdAuditorium)
+                .OnDelete(DeleteBehavior.Cascade);                
         }
     }
 }
