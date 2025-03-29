@@ -32,5 +32,8 @@ namespace TicketMaster.API.Controllers
             var result = await _mediatr.Send(query);
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create()
     }
 }

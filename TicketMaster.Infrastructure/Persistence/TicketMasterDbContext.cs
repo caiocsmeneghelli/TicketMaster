@@ -19,7 +19,6 @@ namespace TicketMaster.Infrastructure.Persistence
         public DbSet<MovieSession> MovieSessions { get; set; }
         public DbSet<Theater> Theaters { get; set; }
         public DbSet<Auditorium> Auditoriums { get; set; }
-        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
