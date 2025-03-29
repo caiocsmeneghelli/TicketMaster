@@ -18,7 +18,12 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
             builder.HasMany(reg => reg.MovieSessions)
                 .WithOne(ms => ms.Auditorium)
                 .HasForeignKey(ms => ms.IdAuditorium)
-                .OnDelete(DeleteBehavior.Cascade);                
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(reg => reg.Theater)
+                .WithMany(reg => reg.Auditoriums)
+                .HasForeignKey(reg => reg.IdTheater)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
