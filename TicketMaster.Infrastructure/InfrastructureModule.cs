@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketMaster.Domain.Repositories;
 using TicketMaster.Infrastructure.Persistence;
+using TicketMaster.Infrastructure.Persistence.Repositories;
 
 namespace TicketMaster.Infrastructure
 {
@@ -14,7 +16,9 @@ namespace TicketMaster.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddPersistence(configuration);
+            services
+                .AddRepositories()
+                .AddPersistence(configuration);
             return services;
         }
 
@@ -24,6 +28,13 @@ namespace TicketMaster.Infrastructure
             var serverVersion = ServerVersion.AutoDetect(connectionString);
             service.AddDbContext<TicketMasterDbContext>(cfg => cfg.UseMySql(connectionString, serverVersion));
             
+            return service;
+        }
+
+        private static IServiceCollection AddRepositories(this IServiceCollection service)
+        {
+            service.AddScoped<IMovieRepository, MovieRepository>();
+
             return service;
         }
             

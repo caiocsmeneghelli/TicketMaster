@@ -1,4 +1,5 @@
 using TicketMaster.Application;
+using TicketMaster.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddApplication();
 
+var configuration = builder.Configuration;
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(configuration);
 
 var app = builder.Build();
 
