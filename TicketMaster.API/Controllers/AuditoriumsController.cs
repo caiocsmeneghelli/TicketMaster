@@ -5,7 +5,7 @@ namespace TicketMaster.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuditoriumController : ControllerBase
+    public class AuditoriumsController : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetAll()

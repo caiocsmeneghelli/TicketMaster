@@ -5,7 +5,7 @@ namespace TicketMaster.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SessionController : ControllerBase
+    public class SessionsController : ControllerBase
     {
 
         [HttpGet]
