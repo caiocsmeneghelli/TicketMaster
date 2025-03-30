@@ -18,6 +18,13 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
+        public async Task<int> CreateAsync(Movie movie)
+        {
+            await _context.Movies.AddAsync(movie);
+            await _context.SaveChangesAsync();
+            return movie.Id;
+        }
+
         public async Task<List<Movie>> GetAllActiveAsync(string? query)
         {
             return await _context.Movies

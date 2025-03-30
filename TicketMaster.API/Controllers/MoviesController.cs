@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TicketMaster.Application.Commands.Movies.Create;
 using TicketMaster.Application.Queies.Movies.GetAll;
 using TicketMaster.Application.Queies.Movies.GetAllActive;
 
@@ -34,6 +35,10 @@ namespace TicketMaster.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(CreateMovieCommand command)
+        {
+            var idMovie = await _mediatr.Send(command);
+            return Ok(idMovie);
+        }
     }
 }

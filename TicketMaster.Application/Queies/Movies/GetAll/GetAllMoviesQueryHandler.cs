@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using TicketMaster.Application.ViewModels.Movies;
+using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 
 namespace TicketMaster.Application.Queies.Movies.GetAll
 {
-    public class GetAllMoviesQueryHandler : IRequestHandler<GetAllMoviesQuery, List<MovieViewModel>>
+    public class GetAllMoviesQueryHandler : IRequestHandler<GetAllMoviesQuery, List<Movie>>
     {
         private readonly IMovieRepository _movieRepository;
 
@@ -13,10 +14,10 @@ namespace TicketMaster.Application.Queies.Movies.GetAll
             _movieRepository = movieRepository;
         }
 
-        public async Task<List<MovieViewModel>> Handle(GetAllMoviesQuery request, CancellationToken cancellationToken)
+        public async Task<List<Movie>> Handle(GetAllMoviesQuery request, CancellationToken cancellationToken)
         {
             var results = await _movieRepository.GetAllAsync();
-            return new List<MovieViewModel>();
+            return results;
         }
     }
 }
