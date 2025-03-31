@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TicketMaster.Application.Commands.Theaters.Create;
 using TicketMaster.Application.Queies.Theaters.GetAll;
 
 namespace TicketMaster.API.Controllers
@@ -21,6 +22,13 @@ namespace TicketMaster.API.Controllers
         {
             var result = _mediatr.Send(new GetAllTheatersQuery());
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateTheaterCommand command)
+        {
+            int idTheater = await _mediatr.Send(command);
+            return Ok(idTheater);
         }
     }
 }

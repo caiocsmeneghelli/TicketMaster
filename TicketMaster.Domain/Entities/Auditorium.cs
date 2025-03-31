@@ -8,12 +8,11 @@ namespace TicketMaster.Domain.Entities
 {
     public class Auditorium
     {
-        public Auditorium(int id, string? name, int idTheater)
+        public Auditorium(string? name, int idTheater)
         {
-            Id = id;
             Name = name;
-            MovieSessions = new List<MovieSession>();
             IdTheater = idTheater;
+            MovieSessions = new List<MovieSession>();
         }
 
         public int Id { get; private set; }
