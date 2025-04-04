@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Application.Queries.MovieSessions.GetAll;
+using TicketMaster.Application.Queries.MovieSessions.GetAllAvailable;
+using TicketMaster.Application.Queries.MovieSessions.GetAllByMovieAndDate;
 
 namespace TicketMaster.API.Controllers
 {
@@ -24,18 +26,24 @@ namespace TicketMaster.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("active")]
-        public async Task<IActionResult> GetAllActive()
+        [HttpGet("movie/{idMovie}/by-date")]
+        public async Task<IActionResult> GetAllByMovieDate(int idMovie, [FromQuery]DateTime date)
         {
-            // Retorna ativos
-            return Ok();
+            var query = new GetAllMovieSessionsByMovieAndDateQuery();
+            query.IdMovie = idMovie;
+            query.Date = date;
+
+            var result = await _mediatr.Send(query);
+            return Ok(result);
         }
 
-        [HttpGet("active/by-date")]
-        public async Task<IActionResult> GetAllActiveByDate([FromQuery]DateTime date, int idMovie)
+        [HttpGet("active")]
+        public async Task<IActionResult> GetAllAvailable()
         {
-            // retorna todas sessoes por dia e por filme
-            return Ok(date);
+            var query = new GetAllMovieSessionsAvailableQuery();
+            var result = await _mediatr.Send(query);
+            return Ok(result);
         }
+
     }
 }
