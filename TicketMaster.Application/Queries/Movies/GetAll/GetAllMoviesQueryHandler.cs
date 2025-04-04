@@ -3,7 +3,7 @@ using TicketMaster.Application.ViewModels.Movies;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 
-namespace TicketMaster.Application.Queies.Movies.GetAll
+namespace TicketMaster.Application.Queries.Movies.GetAll
 {
     public class GetAllMoviesQueryHandler : IRequestHandler<GetAllMoviesQuery, List<Movie>>
     {

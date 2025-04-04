@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Application.Commands.Theaters.Create;
-using TicketMaster.Application.Queies.Theaters.GetAll;
+using TicketMaster.Application.Queries.Theaters.GetAll;
 
 namespace TicketMaster.API.Controllers
 {
@@ -20,7 +20,7 @@ namespace TicketMaster.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var result = _mediatr.Send(new GetAllTheatersQuery());
+            var result = await _mediatr.Send(new GetAllTheatersQuery());
             return Ok(result);
         }
 

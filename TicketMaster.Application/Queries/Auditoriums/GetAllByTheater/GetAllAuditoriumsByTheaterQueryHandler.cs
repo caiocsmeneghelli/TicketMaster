@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 
-namespace TicketMaster.Application.Queies.Auditoriums.GetAllByTheater
+namespace TicketMaster.Application.Queries.Auditoriums.GetAllByTheater
 {
     public class GetAllAuditoriumsByTheaterQueryHandler : IRequestHandler<GetAllAuditoriumsByTheaterQuery, List<Auditorium>>
     {

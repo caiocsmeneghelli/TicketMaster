@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Application.Commands.Auditoriums.Create;
-using TicketMaster.Application.Queies.Auditoriums.GetAll;
-using TicketMaster.Application.Queies.Auditoriums.GetAllByTheater;
+using TicketMaster.Application.Queries.Auditoriums.GetAll;
+using TicketMaster.Application.Queries.Auditoriums.GetAllByTheater;
 using TicketMaster.Domain.Entities;
 
 namespace TicketMaster.API.Controllers
@@ -33,7 +33,7 @@ namespace TicketMaster.API.Controllers
             var query = new GetAllAuditoriumsByTheaterQuery();
             query.IdTheater = idTheater;
             var results = await _mediatr.Send(query);
-            return Ok(query);
+            return Ok(results);
         }
 
         [HttpPost]

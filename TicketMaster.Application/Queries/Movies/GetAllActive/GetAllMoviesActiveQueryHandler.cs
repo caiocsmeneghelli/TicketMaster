@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TicketMaster.Application.ViewModels.Movies;
 using TicketMaster.Domain.Repositories;
 
-namespace TicketMaster.Application.Queies.Movies.GetAllActive
+namespace TicketMaster.Application.Queries.Movies.GetAllActive
 {
     public class GetAllMoviesActiveQueryHandler : IRequestHandler<GetAllMoviesActiveQuery, List<MovieViewModel>>
     {

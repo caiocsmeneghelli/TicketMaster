@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Application.Commands.Movies.Create;
-using TicketMaster.Application.Queies.Movies.GetAll;
-using TicketMaster.Application.Queies.Movies.GetAllActive;
+using TicketMaster.Application.Queries.Movies.GetAll;
+using TicketMaster.Application.Queries.Movies.GetAllActive;
 
 namespace TicketMaster.API.Controllers
 {

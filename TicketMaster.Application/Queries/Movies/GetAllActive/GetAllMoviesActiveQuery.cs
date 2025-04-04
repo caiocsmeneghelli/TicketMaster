@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketMaster.Application.ViewModels.Movies;
 
-namespace TicketMaster.Application.Queies.Movies.GetAllActive
+namespace TicketMaster.Application.Queries.Movies.GetAllActive
 {
     public class GetAllMoviesActiveQuery : IRequest<List<MovieViewModel>>
     {

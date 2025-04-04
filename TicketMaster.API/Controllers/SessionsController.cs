@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TicketMaster.Application.Queries.MovieSessions.GetAll;
 
 namespace TicketMaster.API.Controllers
 {
@@ -7,12 +9,19 @@ namespace TicketMaster.API.Controllers
     [ApiController]
     public class SessionsController : ControllerBase
     {
+        private readonly IMediator _mediatr;
+
+        public SessionsController(IMediator mediatr)
+        {
+            _mediatr = mediatr;
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            // Retorna todas
-            return Ok();
+            var query = new GetAllMovieSessionsQuery();
+            var result = await _mediatr.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("active")]
