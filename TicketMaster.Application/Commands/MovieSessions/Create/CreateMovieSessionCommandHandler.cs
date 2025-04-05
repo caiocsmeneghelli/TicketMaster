@@ -16,7 +16,7 @@ namespace TicketMaster.Application.Commands.MovieSessions.Create
         public async Task<int> Handle(CreateMovieSessionCommand request, CancellationToken cancellationToken)
         {
             var movieSession = new MovieSession(request.IdMovie, 
-                request.IdAuditorium, request.SessionTime, request.TotalSeats);
+                request.IdAuditorium, request.SessionTime);
             int idMovieSession = await _repository.CreateAsync(movieSession);
             return idMovieSession;
         }

@@ -12,6 +12,5 @@ namespace TicketMaster.Application.Commands.MovieSessions.Create
         public int IdMovie { get; set; }
         public int IdAuditorium { get; set; }
         public DateTime SessionTime { get; set; }
-        public int TotalSeats { get; set; }
     }
 }

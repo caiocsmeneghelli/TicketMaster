@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TicketMaster.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,6 +65,7 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    TotalSeats = table.Column<int>(type: "int", nullable: false),
                     IdTheater = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -87,7 +88,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                     IdMovie = table.Column<int>(type: "int", nullable: false),
                     IdAuditorium = table.Column<int>(type: "int", nullable: false),
                     SessionTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    TotalSeats = table.Column<int>(type: "int", nullable: false),
                     ReservedSeats = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

@@ -8,7 +8,7 @@ namespace TicketMaster.Domain.Entities
 {
     public class MovieSession
     {
-        public MovieSession(int idMovie, int idAuditorium, DateTime sessionTime, int totalSeats)
+        public MovieSession(int idMovie, int idAuditorium, DateTime sessionTime)
         {
             IdMovie = idMovie;
             IdAuditorium = idAuditorium;
@@ -22,12 +22,16 @@ namespace TicketMaster.Domain.Entities
         public Auditorium Auditorium { get; private set; }
         public DateTime SessionTime { get; private set; }
         public int ReservedSeats { get; private set; }
-        public bool Available => Auditorium.TotalSeats > ReservedSeats && SessionTime > DateTime.Now;
 
         // add validation
         public void AddReservedSeats(int reservedSeats)
         {
             ReservedSeats += reservedSeats;
+        }
+
+        public bool Available()
+        {
+            return ReservedSeats < Auditorium.TotalSeats;
         }
     }
 }

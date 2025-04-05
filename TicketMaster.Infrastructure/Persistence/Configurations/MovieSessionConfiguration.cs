@@ -14,8 +14,6 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<MovieSession> builder)
         {
             builder.HasKey(ms => ms.Id);
-
-            builder.Ignore(ms => ms.Available);
         }
     }
 }

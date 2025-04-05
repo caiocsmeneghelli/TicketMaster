@@ -36,6 +36,9 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("TotalSeats")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdTheater");
@@ -93,9 +96,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime>("SessionTime")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("TotalSeats")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

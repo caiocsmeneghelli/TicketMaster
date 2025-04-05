@@ -12,8 +12,8 @@ using TicketMaster.Infrastructure.Persistence;
 namespace TicketMaster.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TicketMasterDbContext))]
-    [Migration("20250329152201_InitMigration")]
-    partial class InitMigration
+    [Migration("20250405151710_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("TotalSeats")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -96,9 +99,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime>("SessionTime")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("TotalSeats")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

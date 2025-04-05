@@ -20,7 +20,7 @@ namespace TicketMaster.Application.Commands.Auditoriums.Create
 
         public async Task<int> Handle(CreateAuditoriumCommand request, CancellationToken cancellationToken)
         {
-            Auditorium auditorium = new Auditorium(request.Name, request.IdTheater);
+            Auditorium auditorium = new Auditorium(request.Name, request.IdTheater, request.TotalSeats);
             int idAuditorium = await _repository.CreateAsync(auditorium);
             return idAuditorium;
         }

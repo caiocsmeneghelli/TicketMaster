@@ -27,13 +27,17 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
 
         public async Task<List<MovieSession>> GetAllAsync()
         {
-            return await _context.MovieSessions.ToListAsync();
+            return await _context
+                .MovieSessions
+                .Include(reg => reg.Auditorium)
+                .ToListAsync();
         }
 
         public async Task<List<MovieSession>> GetAllAvailableAsync()
         {
             return await _context.MovieSessions
-                .Where(reg => reg.Available)
+                .Include(reg => reg.Auditorium)
+                .Where(reg => reg.Available())
                 .ToListAsync();
         }
 

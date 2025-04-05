@@ -28,7 +28,9 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
         public async Task<List<Movie>> GetAllActiveAsync(string? query)
         {
             return await _context.Movies
-                .Where(m => m.MovieSessions.Any(ms => ms.Available))
+                .Include(reg => reg.MovieSessions)
+                .ThenInclude(reg => reg.Auditorium)
+                .Where(m => m.MovieSessions.Any(ms => ms.Available()))
                 .ToListAsync();
         }
 
