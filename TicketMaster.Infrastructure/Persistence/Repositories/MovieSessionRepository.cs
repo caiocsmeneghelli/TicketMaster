@@ -35,10 +35,12 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
 
         public async Task<List<MovieSession>> GetAllAvailableAsync()
         {
-            return await _context.MovieSessions
+            var results = await _context.MovieSessions
                 .Include(reg => reg.Auditorium)
-                .Where(reg => reg.Available())
                 .ToListAsync();
+
+            return results.Where(reg => reg.Available())
+                .ToList();
         }
 
         public async Task<List<MovieSession>> GetAllByMovieAndDate(int idMovie, DateTime dateTime)
