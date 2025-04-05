@@ -18,9 +18,11 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             _ticketMasterDbContext = ticketMasterDbContext;
         }
 
-        public Task<int> CreateAsync(Theater theater)
+        public async Task<int> CreateAsync(Theater theater)
         {
-            throw new NotImplementedException();
+            await _ticketMasterDbContext.Theaters.AddAsync(theater);
+            await _ticketMasterDbContext.SaveChangesAsync();
+            return theater.Id;
         }
 
         public async Task<List<Theater>> GetAllAsync()

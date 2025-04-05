@@ -34,6 +34,9 @@ namespace TicketMaster.Infrastructure
         private static IServiceCollection AddRepositories(this IServiceCollection service)
         {
             service.AddScoped<IMovieRepository, MovieRepository>();
+            service.AddScoped<IMovieSessionRepository, MovieSessionRepository>();
+            service.AddScoped<IAuditoriumRepository, AuditoriumRepository>();
+            service.AddScoped<ITheaterRepository, TheaterRepository>();
 
             return service;
         }

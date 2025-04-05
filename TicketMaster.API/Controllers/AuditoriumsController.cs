@@ -24,7 +24,7 @@ namespace TicketMaster.API.Controllers
         {
             var query = new GetAllAuditoriumsQuery();
             var results = await _mediatr.Send(query);
-            return Ok(query);
+            return Ok(results);
         }
 
         [HttpGet("by-theater/{idTheater}")]

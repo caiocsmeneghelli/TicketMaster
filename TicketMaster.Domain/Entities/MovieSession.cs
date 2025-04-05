@@ -13,7 +13,6 @@ namespace TicketMaster.Domain.Entities
             IdMovie = idMovie;
             IdAuditorium = idAuditorium;
             SessionTime = sessionTime;
-            TotalSeats = totalSeats;
         }
 
         public int Id { get; private set; }
@@ -22,9 +21,8 @@ namespace TicketMaster.Domain.Entities
         public int IdAuditorium { get; private set; }
         public Auditorium Auditorium { get; private set; }
         public DateTime SessionTime { get; private set; }
-        public int TotalSeats { get; private set; }
         public int ReservedSeats { get; private set; }
-        public bool Available => TotalSeats > ReservedSeats && SessionTime > DateTime.Now;
+        public bool Available => Auditorium.TotalSeats > ReservedSeats && SessionTime > DateTime.Now;
 
         // add validation
         public void AddReservedSeats(int reservedSeats)

@@ -18,9 +18,11 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public Task<int> CreateAsync(MovieSession movieSession)
+        public async Task<int> CreateAsync(MovieSession movieSession)
         {
-            throw new NotImplementedException();
+            await _context.MovieSessions.AddAsync(movieSession);
+            await _context.SaveChangesAsync();
+            return movieSession.Id;
         }
 
         public async Task<List<MovieSession>> GetAllAsync()
