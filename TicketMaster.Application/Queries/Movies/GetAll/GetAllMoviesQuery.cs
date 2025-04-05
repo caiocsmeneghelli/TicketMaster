@@ -4,7 +4,7 @@ using TicketMaster.Domain.Entities;
 
 namespace TicketMaster.Application.Queries.Movies.GetAll
 {
-    public class GetAllMoviesQuery : IRequest<List<Movie>>
+    public class GetAllMoviesQuery : IRequest<List<MovieViewModel>>
     {
     }
 }
