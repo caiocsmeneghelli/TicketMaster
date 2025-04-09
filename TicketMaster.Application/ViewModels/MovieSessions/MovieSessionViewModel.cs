@@ -16,6 +16,7 @@ namespace TicketMaster.Application.ViewModels.MovieSessions
         public int IdTheater { get; set; }
         public string? Theater { get; private set; }
         public int IdAuditorium { get; set; }
+        public string Auditorium { get; set; }
         public DateTime SessionTime { get; set; }
         public int TotalSeats { get; set; }
         public int ReservedSeats { get; set; }

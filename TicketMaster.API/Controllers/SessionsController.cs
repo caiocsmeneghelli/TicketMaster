@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Application.Commands.MovieSessions.Create;
 using TicketMaster.Application.Queries.MovieSessions.GetAll;
 using TicketMaster.Application.Queries.MovieSessions.GetAllAvailable;
+using TicketMaster.Application.Queries.MovieSessions.GetAllAvailableByMovie;
 using TicketMaster.Application.Queries.MovieSessions.GetAllByMovieAndDate;
 
 namespace TicketMaster.API.Controllers
@@ -37,6 +38,16 @@ namespace TicketMaster.API.Controllers
             var result = await _mediatr.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("active/movie/{idMovie}")]
+        public async Task<IActionResult> GetAllActiveByMovie(int idMovie)
+        {
+            var query = new GetAllMovieSessionsAvailableByMovieQuery();
+            query.IdMovie = idMovie;
+            var results = await _mediatr.Send(query);
+            return Ok(results);
+        }
+
 
         [HttpGet("active")]
         public async Task<IActionResult> GetAllAvailable()
