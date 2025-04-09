@@ -49,7 +49,6 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
                 .MovieSessions
                 .Where(reg => reg.IdMovie == idMovie)
                 .Include(reg => reg.Auditorium)
-                .ThenInclude(reg => reg.MovieSessions)
                 .AsNoTracking()
                 .ToListAsync();
 

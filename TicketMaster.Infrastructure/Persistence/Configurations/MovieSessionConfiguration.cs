@@ -14,6 +14,12 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<MovieSession> builder)
         {
             builder.HasKey(ms => ms.Id);
+
+            builder.HasOne(ms => ms.Auditorium)
+                .WithMany()
+                .HasForeignKey(ms => ms.IdAuditorium)
+                .OnDelete(DeleteBehavior.NoAction);
+                
         }
     }
 }

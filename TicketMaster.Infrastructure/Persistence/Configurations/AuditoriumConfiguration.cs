@@ -14,12 +14,7 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Auditorium> builder)
         {
             builder.HasKey(reg => reg.Id);
-
-            builder.HasMany(reg => reg.MovieSessions)
-                .WithOne(ms => ms.Auditorium)
-                .HasForeignKey(ms => ms.IdAuditorium)
-                .OnDelete(DeleteBehavior.Cascade);
-
+            
             builder.HasOne(reg => reg.Theater)
                 .WithMany(reg => reg.Auditoriums)
                 .HasForeignKey(reg => reg.IdTheater)
