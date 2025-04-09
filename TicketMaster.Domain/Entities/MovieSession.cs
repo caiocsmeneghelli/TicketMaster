@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketMaster.Domain.Enums;
 
 namespace TicketMaster.Domain.Entities
 {
@@ -22,6 +23,8 @@ namespace TicketMaster.Domain.Entities
         public Auditorium Auditorium { get; private set; }
         public DateTime SessionTime { get; private set; }
         public int ReservedSeats { get; private set; }
+        public EAudioAttribute AudioAttribute { get; private set; }
+        public EImageAttribute ImageAttribute { get; private set; }
 
         // add validation
         public void AddReservedSeats(int reservedSeats)

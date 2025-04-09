@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TicketMaster.Application.ViewModels.MovieSessions;
+﻿using TicketMaster.Application.ViewModels.MovieSessions;
 using TicketMaster.Domain.Entities;
+using AutoMapper;
 
 namespace TicketMaster.Application.Mapper
 {
