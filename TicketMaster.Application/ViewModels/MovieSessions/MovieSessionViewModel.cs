@@ -9,7 +9,6 @@ namespace TicketMaster.Application.ViewModels.MovieSessions
     public class MovieSessionViewModel
     {
         public int Id { get; set; }
-        public int IdMovieTheater { get; set; }
         public int IdMovie { get; set; }
         public string? Movie { get; set; }
 

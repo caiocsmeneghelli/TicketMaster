@@ -30,6 +30,8 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             return await _context
                 .MovieSessions
                 .Include(reg => reg.Auditorium)
+                .ThenInclude(reg => reg.Theater)
+                .Include(reg => reg.Movie)
                 .ToListAsync();
         }
 
@@ -48,7 +50,9 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             var results = await _context
                 .MovieSessions
                 .Where(reg => reg.IdMovie == idMovie)
+                .Include(reg => reg.Movie)
                 .Include(reg => reg.Auditorium)
+                .ThenInclude(reg => reg.Theater)
                 .AsNoTracking()
                 .ToListAsync();
 
