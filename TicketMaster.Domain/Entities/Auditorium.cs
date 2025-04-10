@@ -9,11 +9,12 @@ namespace TicketMaster.Domain.Entities
 {
     public class Auditorium
     {
-        public Auditorium(string? name, int idTheater, int totalSeats)
+        public Auditorium(string? name, int idTheater, int totalSeats, EAuditoriumType auditoriumType)
         {
             Name = name;
             IdTheater = idTheater;
             TotalSeats = totalSeats;
+            AuditoriumType = auditoriumType;
         }
 
         public int Id { get; private set; }
@@ -21,6 +22,6 @@ namespace TicketMaster.Domain.Entities
         public int TotalSeats { get; private set; }
         public int IdTheater { get; private set; }
         public Theater Theater { get; private set; }
-        public EAudioAttribute AudioAttribute { get; private set; }
+        public EAuditoriumType AuditoriumType { get; private set; }
     }
 }

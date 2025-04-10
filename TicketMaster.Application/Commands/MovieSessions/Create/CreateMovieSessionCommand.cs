@@ -1,9 +1,5 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TicketMaster.Domain.Enums;
 
 namespace TicketMaster.Application.Commands.MovieSessions.Create
 {
@@ -11,6 +7,8 @@ namespace TicketMaster.Application.Commands.MovieSessions.Create
     {
         public int IdMovie { get; set; }
         public int IdAuditorium { get; set; }
+        public EAudioAttribute AudioAttribute { get; set; }
+        public EImageAttribute ImageAttribute { get; set; }
         public DateTime SessionTime { get; set; }
     }
 }

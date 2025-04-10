@@ -2,9 +2,9 @@ namespace TicketMaster.Domain.Enums
 {
     public enum EImageAttribute 
     {
-        2D = 1,
-        3D = 2,
-        IMAX = 3,
-        4DX = 4
+        Format2D = 1,
+        Format3D = 2,
+        FormatIMAX = 3,
+        Format4DX = 4
     }
 }

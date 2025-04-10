@@ -1,9 +1,5 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TicketMaster.Domain.Enums;
 
 namespace TicketMaster.Application.Commands.Auditoriums.Create
 {
@@ -11,6 +7,7 @@ namespace TicketMaster.Application.Commands.Auditoriums.Create
     {
         public string Name { get; set; }
         public int TotalSeats { get; set; }
+        public EAuditoriumType AuditoriumType { get; set; }
         public int IdTheater { get; set; }
     }
 }
