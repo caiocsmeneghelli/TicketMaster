@@ -33,6 +33,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseExceptionMiddleware();
+
 app.MapControllers();
 
 app.Run();
