@@ -29,6 +29,7 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
         {
             return await _ticketMasterDbContext
                 .Auditoriums
+                .Include(reg => reg.Theater)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -38,6 +39,7 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             return await _ticketMasterDbContext
                 .Auditoriums
                 .Where(reg => reg.IdTheater == idTheater)
+                .Include(reg => reg.Theater)
                 .AsNoTracking()
                 .ToListAsync();
         }
