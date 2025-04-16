@@ -1,13 +1,9 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TicketMaster.Domain.Common;
 
 namespace TicketMaster.Application.Commands.Movies.Create
 {
-    public class CreateMovieCommand : IRequest<int>
+    public class CreateMovieCommand : IRequest<Result<int>>
     {
         public string? Title { get; set; }
         public string? Director { get; set; }

@@ -27,8 +27,8 @@ namespace TicketMaster.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateTheaterCommand command)
         {
-            int idTheater = await _mediatr.Send(command);
-            return Ok(idTheater);
+            var retorno = await _mediatr.Send(command);
+            return Ok(retorno);
         }
     }
 }

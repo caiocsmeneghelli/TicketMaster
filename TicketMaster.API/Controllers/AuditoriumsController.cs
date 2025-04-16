@@ -39,8 +39,8 @@ namespace TicketMaster.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CreateAuditoriumCommand command)
         {
-            int idAuditorium = await _mediatr.Send(command);
-            return Ok(idAuditorium);
+            var retorno = await _mediatr.Send(command);
+            return Ok(retorno);
         }
     }
 }

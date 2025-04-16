@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
+using TicketMaster.Domain.Common;
 
 namespace TicketMaster.Application.Commands.Auditoriums.Create
 {
-    public class CreateAuditoriumCommandHandler : IRequestHandler<CreateAuditoriumCommand, int>
+    public class CreateAuditoriumCommandHandler : IRequestHandler<CreateAuditoriumCommand, Result<int>>
     {
         private readonly IAuditoriumRepository _repository;
 
@@ -18,11 +19,18 @@ namespace TicketMaster.Application.Commands.Auditoriums.Create
             _repository = repository;
         }
 
-        public async Task<int> Handle(CreateAuditoriumCommand request, CancellationToken cancellationToken)
+        public async Task<Result<int>> Handle(CreateAuditoriumCommand request, CancellationToken cancellationToken)
         {
-            Auditorium auditorium = new Auditorium(request.Name, request.IdTheater, request.TotalSeats, request.AuditoriumType);
-            int idAuditorium = await _repository.CreateAsync(auditorium);
-            return idAuditorium;
+            try
+            {
+                Auditorium auditorium = new Auditorium(request.Name, request.IdTheater, request.TotalSeats, request.AuditoriumType);
+                int idAuditorium = await _repository.CreateAsync(auditorium);
+                return Result<int>.Success(idAuditorium);
+            }
+            catch (Exception ex)
+            {
+                return Result<int>.Failure(ex.Message);
+            }
         }
     }
 }

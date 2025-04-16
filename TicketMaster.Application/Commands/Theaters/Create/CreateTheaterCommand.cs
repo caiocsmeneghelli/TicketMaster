@@ -1,13 +1,9 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TicketMaster.Domain.Common;
 
 namespace TicketMaster.Application.Commands.Theaters.Create
 {
-    public class CreateTheaterCommand : IRequest<int>
+    public class CreateTheaterCommand : IRequest<Result<int>>
     {
         public string Name { get; set; }
         public string Address { get; set; }

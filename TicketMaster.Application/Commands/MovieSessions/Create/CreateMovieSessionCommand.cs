@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using TicketMaster.Domain.Enums;
+using TicketMaster.Domain.Common;
 
 namespace TicketMaster.Application.Commands.MovieSessions.Create
 {
-    public class CreateMovieSessionCommand : IRequest<int>
+    public class CreateMovieSessionCommand : IRequest<Result<int>>
     {
         public int IdMovie { get; set; }
         public int IdAuditorium { get; set; }
