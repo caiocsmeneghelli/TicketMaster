@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TicketMaster.API.Common;
 using TicketMaster.Application.Commands.MovieSessions.Create;
 using TicketMaster.Application.Queries.MovieSessions.GetAll;
 using TicketMaster.Application.Queries.MovieSessions.GetAllAvailable;
 using TicketMaster.Application.Queries.MovieSessions.GetAllAvailableByMovie;
 using TicketMaster.Application.Queries.MovieSessions.GetAllByMovieAndDate;
+using TicketMaster.Domain.Common;
 
 namespace TicketMaster.API.Controllers
 {
@@ -48,7 +50,6 @@ namespace TicketMaster.API.Controllers
             return Ok(results);
         }
 
-
         [HttpGet("active")]
         public async Task<IActionResult> GetAllAvailable()
         {
@@ -58,11 +59,17 @@ namespace TicketMaster.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateMovieSessionCommand command)
+        public async Task<ActionResult<ApiResponse<int>>> Create([FromBody] CreateMovieSessionCommand command)
         {
             var result = await _mediatr.Send(command);
-            return Ok(result);
-        }
+            var response = ApiResponse<int>.FromResult(result);
 
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
     }
 }
