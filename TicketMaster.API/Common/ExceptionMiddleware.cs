@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using TicketMaster.API.Common;
+using TicketMaster.Domain.Common;
 
 namespace TicketMaster.API.Common
 {
@@ -33,7 +34,7 @@ namespace TicketMaster.API.Common
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            var response = new ApiResponse<object>(Result.Failure(exception.Message));
+            var response = new ApiResponse<object>(Result<object>.Failure(exception.Message));
             var json = JsonSerializer.Serialize(response);
 
             await context.Response.WriteAsync(json);

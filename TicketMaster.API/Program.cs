@@ -1,3 +1,4 @@
+using TicketMaster.API.Common;
 using TicketMaster.Application;
 using TicketMaster.Infrastructure;
 
