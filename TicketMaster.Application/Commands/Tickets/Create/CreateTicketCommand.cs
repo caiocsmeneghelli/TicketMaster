@@ -10,7 +10,7 @@ namespace TicketMaster.Application.Commands.Tickets.Create
 {
     public class CreateTicketCommand : IRequest<Guid>
     {
-        public int IdMovieSession { get; set; }
+        public Guid GuidMovieSession { get; set; }
         public string? Seat { get; set; }
         public EPaymentType PaymentType { get; set; }
     }

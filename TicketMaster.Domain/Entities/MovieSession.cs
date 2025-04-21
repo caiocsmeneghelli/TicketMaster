@@ -12,6 +12,7 @@ namespace TicketMaster.Domain.Entities
         public MovieSession(int idMovie, int idAuditorium, DateTime sessionTime, 
             EImageAttribute imageAttribute, EAudioAttribute audioAttribute)
         {
+            Guid = new Guid();
             IdMovie = idMovie;
             IdAuditorium = idAuditorium;
             SessionTime = sessionTime;
@@ -19,7 +20,7 @@ namespace TicketMaster.Domain.Entities
             AudioAttribute = audioAttribute;
         }
 
-        public int Id { get; private set; }
+        public Guid Guid { get; private set; }
         public int IdMovie { get; private set; }
         public Movie Movie { get; private set; }
         public int IdAuditorium { get; private set; }
