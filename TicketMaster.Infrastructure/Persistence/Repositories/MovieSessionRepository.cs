@@ -18,11 +18,11 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<int> CreateAsync(MovieSession movieSession)
+        public async Task<Guid> CreateAsync(MovieSession movieSession)
         {
             await _context.MovieSessions.AddAsync(movieSession);
             await _context.SaveChangesAsync();
-            return movieSession.Id;
+            return movieSession.Guid;
         }
 
         public async Task<List<MovieSession>> GetAllAsync()
@@ -69,6 +69,14 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
                 .Include(reg => reg.Movie)
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task<MovieSession?> GetByGuidAsync(Guid id)
+        {
+            return await _context
+                .MovieSessions
+                .AsNoTracking()
+                .SingleOrDefaultAsync(reg => reg.Guid == id);
         }
     }
 }

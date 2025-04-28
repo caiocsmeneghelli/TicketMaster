@@ -4,7 +4,7 @@ using TicketMaster.Domain.Repositories;
 
 namespace TicketMaster.Application.Queries.Tickets.GetAllPending
 {
-    public class GetAllPendingQueryHandler : IRequest<GetAllPendingQuery, List<Ticket>>
+    public class GetAllPendingQueryHandler : IRequestHandler<GetAllPendingQuery, List<Ticket>>
     {
         private readonly ITicketRepository _ticketRepository;
 
@@ -18,7 +18,5 @@ namespace TicketMaster.Application.Queries.Tickets.GetAllPending
             var tickets = await _ticketRepository.GetAllPendingAsync();
             return tickets;
         }
-    }
-    {
     }
 }

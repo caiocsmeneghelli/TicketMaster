@@ -13,7 +13,7 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<MovieSession> builder)
         {
-            builder.HasKey(ms => ms.Id);
+            builder.HasKey(ms => ms.Guid);
 
             builder.HasOne(ms => ms.Auditorium)
                 .WithMany()

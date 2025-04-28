@@ -62,14 +62,12 @@ namespace TicketMaster.API.Controllers
         public async Task<ActionResult<ApiResponse<int>>> Create([FromBody] CreateMovieSessionCommand command)
         {
             var result = await _mediatr.Send(command);
-            var response = ApiResponse<int>.FromResult(result);
-
-            if (!response.Success)
+            if (!result.IsSuccess)
             {
-                return BadRequest(response);
+                return BadRequest(result);
             }
 
-            return Ok(response);
+            return Ok(result);
         }
     }
 }

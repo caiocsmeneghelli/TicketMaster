@@ -9,6 +9,6 @@ namespace TicketMaster.Domain.Repositories
         Task<List<MovieSession>> GetAllAvailableAsync();
         Task<List<MovieSession>> GetAllByMovieAndDate(int idMovie, DateTime dateTime);
         Task<List<MovieSession>> GetAllAvailableByMovieAsync(int idMovie);
-        Task<int> CreateAsync(MovieSession movieSession);
+        Task<Guid> CreateAsync(MovieSession movieSession);
     }
 }

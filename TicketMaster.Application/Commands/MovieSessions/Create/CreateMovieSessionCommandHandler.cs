@@ -5,7 +5,7 @@ using TicketMaster.Domain.Common;
 
 namespace TicketMaster.Application.Commands.MovieSessions.Create
 {
-    public class CreateMovieSessionCommandHandler : IRequestHandler<CreateMovieSessionCommand, Result<int>>
+    public class CreateMovieSessionCommandHandler : IRequestHandler<CreateMovieSessionCommand, Result>
     {
         private readonly IMovieSessionRepository _repository;
 
@@ -14,18 +14,18 @@ namespace TicketMaster.Application.Commands.MovieSessions.Create
             _repository = repository;
         }
 
-        public async Task<Result<int>> Handle(CreateMovieSessionCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(CreateMovieSessionCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var movieSession = new MovieSession(request.IdMovie, request.IdAuditorium, request.SessionTime,
                     request.ImageAttribute, request.AudioAttribute);
-                int idMovieSession = await _repository.CreateAsync(movieSession);
-                return Result<int>.Success(idMovieSession);
+                Guid guidMovieSession = await _repository.CreateAsync(movieSession);
+                return Result<Guid>.Success(guidMovieSession);
             }
             catch (Exception ex)
             {
-                return Result<int>.Failure(ex.Message);
+                return Result<Guid>.Failure(ex.Message);
             }
         }
     }

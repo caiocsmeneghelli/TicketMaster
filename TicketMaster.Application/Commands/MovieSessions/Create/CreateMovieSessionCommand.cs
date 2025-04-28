@@ -4,7 +4,7 @@ using TicketMaster.Domain.Common;
 
 namespace TicketMaster.Application.Commands.MovieSessions.Create
 {
-    public class CreateMovieSessionCommand : IRequest<Result<int>>
+    public class CreateMovieSessionCommand : IRequest<Result>
     {
         public int IdMovie { get; set; }
         public int IdAuditorium { get; set; }
