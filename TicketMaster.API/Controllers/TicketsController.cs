@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Application.Commands.Tickets.Cancel;
 using TicketMaster.Application.Commands.Tickets.Create;
+using TicketMaster.Application.Queries.Tickets.GetAllPending;
 using TicketMaster.Application.Queries.Tickets.GetByGuid;
 
 namespace TicketMaster.API.Controllers
@@ -60,7 +61,15 @@ namespace TicketMaster.API.Controllers
         [HttpGet("pending")]
         public async Task<IActionResult> GetAllPending()
         {
-            return Ok();
+            var query = new GetAllPendingQuery();
+            var result = await _mediatr.Send(query);
+
+            if (result is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }

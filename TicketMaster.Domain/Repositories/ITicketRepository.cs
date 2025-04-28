@@ -10,7 +10,9 @@ namespace TicketMaster.Domain.Repositories
     public interface ITicketRepository
     {
         Task<Guid> CreateAsync(Ticket ticket);
-        Task<List<Ticket>> GetAllAsync();
         Task<Ticket?> GetByGuidAsync(Guid guid);
+        Task<List<Ticket>> GetAllAsync();
+        Task<List<Ticket>> GetAllPendingAsync();
+
     }
 }
