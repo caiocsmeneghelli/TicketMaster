@@ -10,6 +10,7 @@ namespace TicketMaster.Domain.Enums
     {
         Pending = 1,
         Failed = 2,
-        Concluded = 3
+        Canceled = 3,
+        Concluded = 4
     }
 }

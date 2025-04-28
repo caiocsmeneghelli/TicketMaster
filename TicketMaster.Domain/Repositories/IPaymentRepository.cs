@@ -9,7 +9,7 @@ namespace TicketMaster.Domain.Repositories
 {
     public interface IPaymentRepository
     {
-        Task<Payment?> GetByGuid(Guid id);
+        Task<Payment?> GetByGuidAsync(Guid id);
         Task<Guid> CreateAsync(Payment payment);
         Task<List<Payment>> GetAllAsync();
     }

@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TicketMaster.Application.Commands.Tickets.Cancel;
+using TicketMaster.Application.Commands.Tickets.Create;
 using TicketMaster.Application.Queries.Tickets.GetByGuid;
 
 namespace TicketMaster.API.Controllers
@@ -28,15 +30,31 @@ namespace TicketMaster.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync()
+        public async Task<IActionResult> CreateAsync(CreateTicketCommand command)
         {
-            return Ok();
+            var result = await _mediatr.Send(command);
+            if (!result.IsSuccess)
+            {
+                // use result pattern
+                return BadRequest(result.Error);
+            }
+
+            return Ok(result);
         }
 
-        [HttpPut("cancel/{guid")]
+        [HttpPut("cancel/{guid}")]
         public async Task<IActionResult> Cancel(Guid guid)
         {
-            return Ok();
+            var command = new CancelTicketCommand(guid);
+            var result = await _mediatr.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                // use result pattern
+                return BadRequest(result.Error);
+            }
+
+            return Ok(result);
         }
 
         [HttpGet("pending")]

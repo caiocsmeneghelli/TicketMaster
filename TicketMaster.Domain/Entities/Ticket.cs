@@ -20,5 +20,10 @@ namespace TicketMaster.Domain.Entities
             Seat = seat?.ToUpper();
             TicketStatus = ETicketStatus.Pending;
         }
+
+        public void Cancel()
+        {
+            TicketStatus = ETicketStatus.Canceled;
+        }
     }
 }
