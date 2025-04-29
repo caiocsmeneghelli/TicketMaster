@@ -16,8 +16,4 @@
     <ProjectReference Include="..\TicketMaster.Domain\TicketMaster.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
-  </ItemGroup>
-
 </Project>
