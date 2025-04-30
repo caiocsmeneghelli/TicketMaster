@@ -8,16 +8,15 @@ namespace TicketMaster.Domain.Entities
         public Guid GuidMovieSession { get; private set; }
         public MovieSession MovieSession { get; private set; }
         public string? Seat { get; private set; }
-        public Guid GuidPayment { get; private set; }
-        public Payment Payment { get; private set; }
         public ETicketStatus TicketStatus { get; private set; }
 
+        public Guid GuidOrderRequest { get; private set; }
+        public OrderRequest OrderRequest { get; private set; }
         public User? Usuario { get; private set; }
 
-        public Ticket(Guid guidMovieSession, string? seat, Guid guidPayment)
+        public Ticket(Guid guidMovieSession, string? seat)
         {
             Guid = new Guid();
-            GuidPayment = guidPayment;
             GuidMovieSession = guidMovieSession;
             Seat = seat?.ToUpper();
             TicketStatus = ETicketStatus.Pending;

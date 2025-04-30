@@ -25,16 +25,16 @@ namespace TicketMaster.Application.Commands.Tickets.Cancel
                 Ticket? ticket = await _unitOfWork.TicketRepository.GetByGuidAsync(request.GuidTicket);
                 if (ticket is null) { return Result.Failure("Ticket não encontrado"); }
 
-                Payment? payment = await _unitOfWork.PaymentRepository.GetByGuidAsync(ticket.GuidPayment);
-                if(payment is null) { return Result.Failure("Pagamento não encontrado"); }
+                // Payment? payment = await _unitOfWork.PaymentRepository.GetByGuidAsync(ticket.GuidPayment);
+                // if(payment is null) { return Result.Failure("Pagamento não encontrado"); }
 
                 // Cancelar pagamento
                 // Cancelar ticket
 
                 await _unitOfWork.BeginTransaction();
 
-                payment.Cancel();
-                await _unitOfWork.CompleteAsync();
+                // payment.Cancel();
+                // await _unitOfWork.CompleteAsync();
 
                 ticket.Cancel();
                 await _unitOfWork.CompleteAsync();

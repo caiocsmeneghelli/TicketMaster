@@ -23,25 +23,28 @@ namespace TicketMaster.Application.Commands.Tickets.Create
         {
             try
             {
-                // validar command
-                // validar movie session
                 var payment = new Payment(request.PaymentType);
                 var guidPayment = await _unitOfWork.PaymentRepository.CreateAsync(payment);
 
                 // Add result
                 var movieSession = await _unitOfWork.MovieSessionRepository.GetByGuidAsync(request.GuidMovieSession);
-                if (movieSession is null) { throw new Exception(); }
+                if (movieSession is null) { return Result.Failure("Sessão não encontrada."); }
 
-                var ticket = new Ticket(movieSession.Guid, request.Seat, guidPayment);
+                if (movieSession.Available())
+                {
+                    return Result.Failure("Não existe mais assentos vagos.");
+                }
+
+                movieSession.AddReservedSeats(1);
+
+                var ticket = new Ticket(movieSession.Guid, request.Seat);
                 var guidTicket = await _unitOfWork.TicketRepository.CreateAsync(ticket);
 
                 // enviar para paymentservice
-                // retornar guid
                 return Result<Guid>.Success(guidTicket);
             }
             catch (Exception ex)
             {
-                // Logar erro
                 return Result.Failure("Erro ao criar o ticket: " + ex.Message);
             }
         }
