@@ -11,7 +11,7 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
             builder.HasKey(t => t.Guid);
 
             builder.HasOne(t => t.Payment)
-                .WithOne()
+                .WithOne(p => p.Ticket)
                 .HasForeignKey<Ticket>(t => t.GuidPayment);
 
             builder.HasOne(t => t.MovieSession)

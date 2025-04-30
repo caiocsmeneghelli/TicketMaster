@@ -12,6 +12,8 @@ namespace TicketMaster.Domain.Entities
         public Payment Payment { get; private set; }
         public ETicketStatus TicketStatus { get; private set; }
 
+        public User? Usuario { get; private set; }
+
         public Ticket(Guid guidMovieSession, string? seat, Guid guidPayment)
         {
             Guid = new Guid();

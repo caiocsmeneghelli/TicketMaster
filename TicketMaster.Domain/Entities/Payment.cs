@@ -16,6 +16,7 @@ namespace TicketMaster.Domain.Entities
         public DateTime? FinishedProcess { get; private set; }
         public EPaymentType PaymentType { get; private set; }
         public EPaymentStatus PaymentStatus { get; private set; }
+        public Ticket Ticket { get; private set; }
 
         public void Cancel()
         {
