@@ -4,6 +4,7 @@ namespace TicketMaster.Domain.Entities
     {
         public OrderRequest(Payment payment, List<Ticket> tickets)
         {
+            Guid = new Guid();
             Payment = payment;
             Tickets = tickets;
         }
@@ -11,6 +12,6 @@ namespace TicketMaster.Domain.Entities
         public Guid Guid { get; private set; }
         public Payment Payment { get; private set; }
         public List<Ticket> Tickets { get; private set; }
-        public decimal Value { get; private set; }
+        public decimal TotalValue { get; private set; }
     }
 }
