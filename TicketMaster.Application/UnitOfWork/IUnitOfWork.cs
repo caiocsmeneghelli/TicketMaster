@@ -12,6 +12,7 @@ namespace TicketMaster.Application.UnitOfWork
         ITicketRepository TicketRepository { get; }
         IPaymentRepository PaymentRepository { get; }
         IMovieSessionRepository MovieSessionRepository { get; }
+        IOrderRequestRepository OrderRequestRepository { get; }
 
         Task<int> CompleteAsync();
         Task BeginTransaction();

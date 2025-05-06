@@ -9,8 +9,8 @@ namespace TicketMaster.Domain.Entities
 {
     public class MovieSession
     {
-        public MovieSession(int idMovie, int idAuditorium, DateTime sessionTime, 
-            EImageAttribute imageAttribute, EAudioAttribute audioAttribute)
+        public MovieSession(int idMovie, int idAuditorium, DateTime sessionTime,
+            EImageAttribute imageAttribute, EAudioAttribute audioAttribute, decimal ticketValue)
         {
             Guid = new Guid();
             IdMovie = idMovie;
@@ -18,6 +18,7 @@ namespace TicketMaster.Domain.Entities
             SessionTime = sessionTime;
             ImageAttribute = imageAttribute;
             AudioAttribute = audioAttribute;
+            TicketValue = ticketValue;
         }
 
         public Guid Guid { get; private set; }
@@ -29,6 +30,9 @@ namespace TicketMaster.Domain.Entities
         public int ReservedSeats { get; private set; }
         public EImageAttribute ImageAttribute { get; private set; }
         public EAudioAttribute AudioAttribute { get; private set; }
+        public decimal TicketValue { get; private set; }
+
+        public List<Ticket> Tickets { get; private set; }
 
         // add validation
         public void AddReservedSeats(int reservedSeats)

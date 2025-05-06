@@ -19,7 +19,7 @@ namespace TicketMaster.Application.Commands.MovieSessions.Create
             try
             {
                 var movieSession = new MovieSession(request.IdMovie, request.IdAuditorium, request.SessionTime,
-                    request.ImageAttribute, request.AudioAttribute);
+                    request.ImageAttribute, request.AudioAttribute, request.TicketValue);
                 Guid guidMovieSession = await _repository.CreateAsync(movieSession);
                 return Result<Guid>.Success(guidMovieSession);
             }

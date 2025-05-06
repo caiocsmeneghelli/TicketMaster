@@ -11,5 +11,6 @@ namespace TicketMaster.Application.Commands.MovieSessions.Create
         public EAudioAttribute AudioAttribute { get; set; }
         public EImageAttribute ImageAttribute { get; set; }
         public DateTime SessionTime { get; set; }
+        public decimal TicketValue { get; set; }
     }
 }

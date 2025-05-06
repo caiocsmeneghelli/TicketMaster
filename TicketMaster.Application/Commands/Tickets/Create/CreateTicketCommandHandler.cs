@@ -37,7 +37,7 @@ namespace TicketMaster.Application.Commands.Tickets.Create
 
                 movieSession.AddReservedSeats(1);
 
-                var ticket = new Ticket(movieSession.Guid, request.Seat);
+                var ticket = new Ticket(movieSession.Guid, request.Seat, new Guid());
                 var guidTicket = await _unitOfWork.TicketRepository.CreateAsync(ticket);
 
                 // enviar para paymentservice

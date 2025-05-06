@@ -13,9 +13,11 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             _ticketMasterDbContext = dbContext;
         }
 
-        public Task<Guid> CreateAsync(Ticket ticket)
+        public async Task<Guid> CreateAsync(Ticket ticket)
         {
-            throw new NotImplementedException();
+            await _ticketMasterDbContext.Tickets.AddAsync(ticket);
+            await _ticketMasterDbContext.SaveChangesAsync();
+            return ticket.Guid;
         }
 
         public async Task<List<Ticket>> GetAllAsync()

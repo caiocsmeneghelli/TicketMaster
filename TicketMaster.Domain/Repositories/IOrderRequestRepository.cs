@@ -7,7 +7,7 @@ namespace TicketMaster.Domain.Repositories
         Task<List<OrderRequest>> GetAllAsync();
         // Add pagination
         Task<List<OrderRequest>> ListAsync();
-        Task<Guid> CreateAsync();
+        Task<Guid> CreateAsync(OrderRequest orderRequest);
         Task Cancel();
     }
 }

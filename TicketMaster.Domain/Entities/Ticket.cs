@@ -14,12 +14,13 @@ namespace TicketMaster.Domain.Entities
         public OrderRequest OrderRequest { get; private set; }
         public User? Usuario { get; private set; }
 
-        public Ticket(Guid guidMovieSession, string? seat)
+        public Ticket(Guid guidMovieSession, string? seat, Guid guidOrderRequest)
         {
             Guid = new Guid();
             GuidMovieSession = guidMovieSession;
             Seat = seat?.ToUpper();
             TicketStatus = ETicketStatus.Pending;
+            GuidOrderRequest = guidOrderRequest;
         }
 
         public void Cancel()
