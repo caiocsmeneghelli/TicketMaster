@@ -44,5 +44,10 @@ namespace TicketMaster.Domain.Entities
         {
             return ReservedSeats < Auditorium.TotalSeats;
         }
+
+        public bool IsAvailable(int seats)
+        {
+            return ReservedSeats + seats <= Auditorium.TotalSeats;
+        }
     }
 }

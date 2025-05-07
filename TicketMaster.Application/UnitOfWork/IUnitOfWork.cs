@@ -17,5 +17,7 @@ namespace TicketMaster.Application.UnitOfWork
         Task<int> CompleteAsync();
         Task BeginTransaction();
         Task CommitAsync();
+        Task Rollback();
+        void Dispose();
     }
 }
