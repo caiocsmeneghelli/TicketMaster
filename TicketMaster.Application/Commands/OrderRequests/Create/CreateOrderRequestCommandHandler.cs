@@ -34,7 +34,6 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
                     return Result.Failure("Ingressos não disponíveis.");
                 }
 
-
                 Payment payment = new Payment(request.Payment.PaymentType);
                 Guid guidPayment = await _unitOfWork.PaymentRepository.CreateAsync(payment);
 
