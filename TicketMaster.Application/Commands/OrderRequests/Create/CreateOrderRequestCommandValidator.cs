@@ -36,7 +36,7 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
                 .NotEmpty().WithMessage("O assento não pode ser vazio.")
                 .Length(1, 3).WithMessage("O assento deve ter entre 1 e 3 caracteres.")
                 .Matches(@"^[A-Za-z][0-9]{2}$")
-                .WithMessage("O assento deve seguir o padrão de letra seguida por dois números (ex: A01, B02).")
+                .WithMessage("O assento deve seguir o padrão de letra seguida por dois números (ex: A01, B02).");
         }
     }
 

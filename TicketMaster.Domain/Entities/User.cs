@@ -8,7 +8,7 @@ namespace TicketMaster.Domain.Entities
         public string? FirstName { get; private set; }
         public string? LastName { get; private set; }
 
-        public Address Address { get; private set; }
+        //public Address Address { get; private set; }
         public bool Active { get; private set; }
     }
 }

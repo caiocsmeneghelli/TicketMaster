@@ -12,7 +12,7 @@ namespace TicketMaster.Domain.Entities
 
         public Guid GuidOrderRequest { get; private set; }
         public OrderRequest OrderRequest { get; private set; }
-        public User? Usuario { get; private set; }
+        //public User? Usuario { get; private set; }
 
         public Ticket(Guid guidMovieSession, string? seat, Guid guidOrderRequest)
         {

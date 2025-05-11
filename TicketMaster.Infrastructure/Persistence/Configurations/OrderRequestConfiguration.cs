@@ -12,7 +12,7 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
 
             builder.HasOne(r => r.Payment)
                 .WithOne(p => p.OrderRequest)
-                .HasForeignKey<Payment>(p => p.GuidOrderRequest)
+                .HasForeignKey<OrderRequest>(or => or.GuidPayment)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(r => r.Tickets)

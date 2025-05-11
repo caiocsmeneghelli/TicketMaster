@@ -7,8 +7,8 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
     public class CreateOrderRequestCommand : IRequest<Result>
     {
         public Guid GuidMovieSession { get; set; }
-        public List<TicketDto> Tickets { get; private set; }
+        public List<TicketDto>? Tickets { get; set; }
         // Change?
-        public  PaymentDto Payment { get; private set; }
+        public  PaymentDto? Payment { get; set; }
     }
 }

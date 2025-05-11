@@ -75,6 +75,7 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
         {
             return await _context
                 .MovieSessions
+                .Include(reg => reg.Auditorium)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(reg => reg.Guid == id);
         }

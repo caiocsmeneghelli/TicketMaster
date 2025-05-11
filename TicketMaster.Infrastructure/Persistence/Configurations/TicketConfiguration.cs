@@ -12,7 +12,8 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
 
             builder.HasOne(t => t.MovieSession)
                 .WithOne()
-                .HasForeignKey<Ticket>(t => t.GuidMovieSession);
+                .HasForeignKey<Ticket>(t => t.GuidMovieSession)
+                .HasPrincipalKey<MovieSession>(ms => ms.Guid);
         }
     }
 }

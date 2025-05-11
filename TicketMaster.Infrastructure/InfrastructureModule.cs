@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketMaster.Application.UnitOfWork;
 using TicketMaster.Domain.Repositories;
 using TicketMaster.Infrastructure.Persistence;
 using TicketMaster.Infrastructure.Persistence.Repositories;
@@ -18,6 +19,7 @@ namespace TicketMaster.Infrastructure
         {
             services
                 .AddRepositories()
+                .AddUnitOfWrok()
                 .AddPersistence(configuration);
             return services;
         }
@@ -39,7 +41,14 @@ namespace TicketMaster.Infrastructure
             service.AddScoped<ITheaterRepository, TheaterRepository>();
             service.AddScoped<ITicketRepository, TicketRepository>();
             service.AddScoped<IPaymentRepository, PaymentRepository>();
+            service.AddScoped<IOrderRequestRepository, OrderRequestRepository>();
 
+            return service;
+        }
+
+        private static IServiceCollection AddUnitOfWrok(this IServiceCollection service)
+        {
+            service.AddScoped<IUnitOfWork, UnitOfWork>();
             return service;
         }
             

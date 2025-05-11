@@ -14,6 +14,10 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Payment> builder)
         {
             builder.HasKey(p => p.Guid);
+
+            builder.HasOne(p => p.OrderRequest)
+                .WithOne(o => o.Payment)
+                .HasForeignKey<Payment>(p => p.GuidOrderRequest);
         }
     }
 }

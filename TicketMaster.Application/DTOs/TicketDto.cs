@@ -8,6 +8,6 @@ namespace TicketMaster.Application.DTOs
 {
     public class TicketDto
     {
-        public string? Seat { get; private set; }
+        public string? Seat { get; set; }
     }
 }
