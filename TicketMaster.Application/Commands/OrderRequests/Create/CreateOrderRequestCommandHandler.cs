@@ -34,12 +34,14 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
                     return Result.Failure("Ingressos não disponíveis.");
                 }
 
-                Payment payment = new Payment(request.Payment.PaymentType);
+                decimal totalValue = movieSesion.TicketValue * request.Tickets.Count;
+                OrderRequest orderRequest = new OrderRequest(totalValue);
+                Guid guidOrderRequest = await _unitOfWork.OrderRequestRepository.CreateAsync(orderRequest);
+
+                Payment payment = new Payment(request.Payment.PaymentType, guidOrderRequest);
                 Guid guidPayment = await _unitOfWork.PaymentRepository.CreateAsync(payment);
 
-                decimal totalValue = movieSesion.TicketValue * request.Tickets.Count;
-                OrderRequest orderRequest = new OrderRequest(totalValue, guidPayment);
-                Guid guidOrderRequest = await _unitOfWork.OrderRequestRepository.CreateAsync(orderRequest);
+                
 
                 var tickets = request.Tickets.Select(t => new Ticket(movieSesion.Guid, t.Seat, guidOrderRequest)).ToList();
 

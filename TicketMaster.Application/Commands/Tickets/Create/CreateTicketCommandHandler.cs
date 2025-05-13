@@ -23,7 +23,7 @@ namespace TicketMaster.Application.Commands.Tickets.Create
         {
             try
             {
-                var payment = new Payment(request.PaymentType);
+                var payment = new Payment(request.PaymentType, Guid.NewGuid());
                 var guidPayment = await _unitOfWork.PaymentRepository.CreateAsync(payment);
 
                 // Add result

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TicketMaster.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigrations : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,18 +39,16 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Payments",
+                name: "OrderRequests",
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    FinishedProcess = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    PaymentType = table.Column<int>(type: "int", nullable: false),
-                    PaymentStatus = table.Column<int>(type: "int", nullable: false),
-                    GuidOrderRequest = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    GuidPayment = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    TotalValue = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payments", x => x.Guid);
+                    table.PrimaryKey("PK_OrderRequests", x => x.Guid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -74,22 +72,23 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OrderRequests",
+                name: "Payments",
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    GuidPayment = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    TotalValue = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    FinishedProcess = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    PaymentType = table.Column<int>(type: "int", nullable: false),
+                    PaymentStatus = table.Column<int>(type: "int", nullable: false),
+                    GuidOrderRequest = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderRequests", x => x.Guid);
+                    table.PrimaryKey("PK_Payments", x => x.Guid);
                     table.ForeignKey(
-                        name: "FK_OrderRequests_Payments_GuidPayment",
-                        column: x => x.GuidPayment,
-                        principalTable: "Payments",
-                        principalColumn: "Guid",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_Payments_OrderRequests_GuidOrderRequest",
+                        column: x => x.GuidOrderRequest,
+                        principalTable: "OrderRequests",
+                        principalColumn: "Guid");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -155,8 +154,7 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                     Seat = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TicketStatus = table.Column<int>(type: "int", nullable: false),
-                    GuidOrderRequest = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    MovieSessionGuid = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
+                    GuidOrderRequest = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -164,12 +162,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Tickets_MovieSessions_GuidMovieSession",
                         column: x => x.GuidMovieSession,
-                        principalTable: "MovieSessions",
-                        principalColumn: "Guid",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tickets_MovieSessions_MovieSessionGuid",
-                        column: x => x.MovieSessionGuid,
                         principalTable: "MovieSessions",
                         principalColumn: "Guid");
                     table.ForeignKey(
@@ -197,31 +189,28 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                 column: "IdMovie");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderRequests_GuidPayment",
-                table: "OrderRequests",
-                column: "GuidPayment",
+                name: "IX_Payments_GuidOrderRequest",
+                table: "Payments",
+                column: "GuidOrderRequest",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_GuidMovieSession",
                 table: "Tickets",
-                column: "GuidMovieSession",
-                unique: true);
+                column: "GuidMovieSession");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_GuidOrderRequest",
                 table: "Tickets",
                 column: "GuidOrderRequest");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tickets_MovieSessionGuid",
-                table: "Tickets",
-                column: "MovieSessionGuid");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Payments");
+
             migrationBuilder.DropTable(
                 name: "Tickets");
 
@@ -236,9 +225,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Movies");
-
-            migrationBuilder.DropTable(
-                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "Theaters");

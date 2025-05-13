@@ -130,9 +130,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("GuidPayment")
-                        .IsUnique();
-
                     b.ToTable("OrderRequests");
                 });
 
@@ -155,6 +152,9 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Guid");
+
+                    b.HasIndex("GuidOrderRequest")
+                        .IsUnique();
 
                     b.ToTable("Payments");
                 });
@@ -238,15 +238,15 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("TicketMaster.Domain.Entities.OrderRequest", b =>
+            modelBuilder.Entity("TicketMaster.Domain.Entities.Payment", b =>
                 {
-                    b.HasOne("TicketMaster.Domain.Entities.Payment", "Payment")
-                        .WithOne("OrderRequest")
-                        .HasForeignKey("TicketMaster.Domain.Entities.OrderRequest", "GuidPayment")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("TicketMaster.Domain.Entities.OrderRequest", "OrderRequest")
+                        .WithOne("Payment")
+                        .HasForeignKey("TicketMaster.Domain.Entities.Payment", "GuidOrderRequest")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Payment");
+                    b.Navigation("OrderRequest");
                 });
 
             modelBuilder.Entity("TicketMaster.Domain.Entities.Ticket", b =>
@@ -280,12 +280,10 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TicketMaster.Domain.Entities.OrderRequest", b =>
                 {
-                    b.Navigation("Tickets");
-                });
+                    b.Navigation("Payment")
+                        .IsRequired();
 
-            modelBuilder.Entity("TicketMaster.Domain.Entities.Payment", b =>
-                {
-                    b.Navigation("OrderRequest");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("TicketMaster.Domain.Entities.Theater", b =>

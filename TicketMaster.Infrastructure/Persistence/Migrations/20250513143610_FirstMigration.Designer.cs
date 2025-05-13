@@ -12,8 +12,8 @@ using TicketMaster.Infrastructure.Persistence;
 namespace TicketMaster.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TicketMasterDbContext))]
-    [Migration("20250513123431_InitMigrations")]
-    partial class InitMigrations
+    [Migration("20250513143610_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,9 +133,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("GuidPayment")
-                        .IsUnique();
-
                     b.ToTable("OrderRequests");
                 });
 
@@ -158,6 +155,9 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Guid");
+
+                    b.HasIndex("GuidOrderRequest")
+                        .IsUnique();
 
                     b.ToTable("Payments");
                 });
@@ -196,9 +196,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("GuidOrderRequest")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("MovieSessionGuid")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("Seat")
                         .HasColumnType("longtext");
 
@@ -207,12 +204,9 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("GuidMovieSession")
-                        .IsUnique();
+                    b.HasIndex("GuidMovieSession");
 
                     b.HasIndex("GuidOrderRequest");
-
-                    b.HasIndex("MovieSessionGuid");
 
                     b.ToTable("Tickets");
                 });
@@ -247,23 +241,23 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("TicketMaster.Domain.Entities.OrderRequest", b =>
+            modelBuilder.Entity("TicketMaster.Domain.Entities.Payment", b =>
                 {
-                    b.HasOne("TicketMaster.Domain.Entities.Payment", "Payment")
-                        .WithOne("OrderRequest")
-                        .HasForeignKey("TicketMaster.Domain.Entities.OrderRequest", "GuidPayment")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("TicketMaster.Domain.Entities.OrderRequest", "OrderRequest")
+                        .WithOne("Payment")
+                        .HasForeignKey("TicketMaster.Domain.Entities.Payment", "GuidOrderRequest")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Payment");
+                    b.Navigation("OrderRequest");
                 });
 
             modelBuilder.Entity("TicketMaster.Domain.Entities.Ticket", b =>
                 {
                     b.HasOne("TicketMaster.Domain.Entities.MovieSession", "MovieSession")
-                        .WithOne()
-                        .HasForeignKey("TicketMaster.Domain.Entities.Ticket", "GuidMovieSession")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Tickets")
+                        .HasForeignKey("GuidMovieSession")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TicketMaster.Domain.Entities.OrderRequest", "OrderRequest")
@@ -271,10 +265,6 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                         .HasForeignKey("GuidOrderRequest")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TicketMaster.Domain.Entities.MovieSession", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("MovieSessionGuid");
 
                     b.Navigation("MovieSession");
 
@@ -293,12 +283,10 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TicketMaster.Domain.Entities.OrderRequest", b =>
                 {
-                    b.Navigation("Tickets");
-                });
+                    b.Navigation("Payment")
+                        .IsRequired();
 
-            modelBuilder.Entity("TicketMaster.Domain.Entities.Payment", b =>
-                {
-                    b.Navigation("OrderRequest");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("TicketMaster.Domain.Entities.Theater", b =>

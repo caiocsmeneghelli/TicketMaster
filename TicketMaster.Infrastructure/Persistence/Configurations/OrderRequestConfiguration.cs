@@ -14,6 +14,11 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
                 .WithOne(t => t.OrderRequest)
                 .HasForeignKey(t => t.GuidOrderRequest)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(or => or.Payment)
+                .WithOne(p => p.OrderRequest)
+                .HasForeignKey<Payment>(p => p.GuidOrderRequest)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

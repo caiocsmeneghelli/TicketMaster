@@ -4,10 +4,11 @@ namespace TicketMaster.Domain.Entities
 {
     public class Payment
     {
-        public Payment(EPaymentType paymentType)
+        public Payment(EPaymentType paymentType, Guid guidOrderRequest)
         {
             Guid = Guid.NewGuid();
             PaymentType = paymentType;
+            GuidOrderRequest = guidOrderRequest;
             PaymentStatus = (paymentType == EPaymentType.Cash || paymentType == EPaymentType.Pix) ?
                 EPaymentStatus.Approved : EPaymentStatus.Pending;
         }
@@ -18,7 +19,7 @@ namespace TicketMaster.Domain.Entities
         public EPaymentStatus PaymentStatus { get; private set; }
 
         public Guid GuidOrderRequest { get; private set; }
-        public OrderRequest? OrderRequest { get; private set; }
+        public OrderRequest OrderRequest { get; private set; }
 
         public void Cancel()
         {

@@ -16,7 +16,7 @@ namespace TicketMaster.Domain.Entities
 
         public Ticket(Guid guidMovieSession, string? seat, Guid guidOrderRequest)
         {
-            Guid = new Guid();
+            Guid = Guid.NewGuid();
             GuidMovieSession = guidMovieSession;
             Seat = seat?.ToUpper();
             TicketStatus = ETicketStatus.Pending;
