@@ -2,11 +2,11 @@ namespace TicketMaster.Domain.Entities
 {
     public class OrderRequest
     {
-        public OrderRequest(Guid guidPayment, decimal totalValue)
+        public OrderRequest(decimal totalValue, Guid guidPayment)
         {
-            Guid = new Guid();
-            GuidPayment = guidPayment;
+            Guid = Guid.NewGuid();
             TotalValue = totalValue;
+            GuidPayment = guidPayment;
         }
 
         public Guid Guid { get; private set; }

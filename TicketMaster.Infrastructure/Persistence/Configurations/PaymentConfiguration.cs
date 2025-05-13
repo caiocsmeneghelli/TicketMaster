@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketMaster.Domain.Entities;
 
 namespace TicketMaster.Infrastructure.Persistence.Configurations
@@ -17,7 +12,8 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
 
             builder.HasOne(p => p.OrderRequest)
                 .WithOne(o => o.Payment)
-                .HasForeignKey<Payment>(p => p.GuidOrderRequest);
+                .HasForeignKey<OrderRequest>(p => p.GuidPayment)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

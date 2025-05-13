@@ -38,7 +38,7 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
                 Guid guidPayment = await _unitOfWork.PaymentRepository.CreateAsync(payment);
 
                 decimal totalValue = movieSesion.TicketValue * request.Tickets.Count;
-                OrderRequest orderRequest = new OrderRequest(guidPayment, totalValue);
+                OrderRequest orderRequest = new OrderRequest(totalValue, guidPayment);
                 Guid guidOrderRequest = await _unitOfWork.OrderRequestRepository.CreateAsync(orderRequest);
 
                 var tickets = request.Tickets.Select(t => new Ticket(movieSesion.Guid, t.Seat, guidOrderRequest)).ToList();

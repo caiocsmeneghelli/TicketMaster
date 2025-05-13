@@ -18,8 +18,7 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
             builder.HasOne(ms => ms.Auditorium)
                 .WithMany()
                 .HasForeignKey(ms => ms.IdAuditorium)
-                .OnDelete(DeleteBehavior.NoAction);
-                
+                .OnDelete(DeleteBehavior.NoAction);                
         }
     }
 }

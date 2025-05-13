@@ -6,7 +6,7 @@ namespace TicketMaster.Domain.Entities
     {
         public Payment(EPaymentType paymentType)
         {
-            Guid = new Guid();
+            Guid = Guid.NewGuid();
             PaymentType = paymentType;
             PaymentStatus = (paymentType == EPaymentType.Cash || paymentType == EPaymentType.Pix) ?
                 EPaymentStatus.Approved : EPaymentStatus.Pending;
