@@ -19,6 +19,10 @@ namespace TicketMaster.Infrastructure.Persistence.Configurations
                 .WithOne(p => p.OrderRequest)
                 .HasForeignKey<Payment>(p => p.GuidOrderRequest)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(or => or.TotalValue)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
         }
     }
 }

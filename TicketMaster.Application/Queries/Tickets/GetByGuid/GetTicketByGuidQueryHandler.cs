@@ -1,15 +1,11 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TicketMaster.Domain.Common;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 
 namespace TicketMaster.Application.Queries.Tickets.GetByGuid
 {
-    public class GetTicketByGuidQueryHandler : IRequestHandler<GetTicketByGuidQuery, Ticket?>
+    public class GetTicketByGuidQueryHandler : IRequestHandler<GetTicketByGuidQuery, Result>
     {
         private readonly ITicketRepository _repository;
 
@@ -18,13 +14,13 @@ namespace TicketMaster.Application.Queries.Tickets.GetByGuid
             _repository = repository;
         }
 
-        public async Task<Ticket?> Handle(GetTicketByGuidQuery request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(GetTicketByGuidQuery request, CancellationToken cancellationToken)
         {
             var ticket = await _repository.GetByGuidAsync(request.Guid);
-            if (ticket == null) { return null; }
+            if (ticket == null) { return Result.Failure("Ingresso não encontrado."); }
 
-            // add mapper
-            return ticket;
+            // Add mapper
+            return Result<Ticket>.Success(ticket);
         }
     }
 }

@@ -41,7 +41,8 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
                 Payment payment = new Payment(request.Payment.PaymentType, guidOrderRequest);
                 Guid guidPayment = await _unitOfWork.PaymentRepository.CreateAsync(payment);
 
-                
+                orderRequest.SetPayment(payment);
+                await _unitOfWork.CompleteAsync();
 
                 var tickets = request.Tickets.Select(t => new Ticket(movieSesion.Guid, t.Seat, guidOrderRequest)).ToList();
 

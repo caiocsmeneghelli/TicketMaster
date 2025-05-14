@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Application.Commands.Tickets.Cancel;
-using TicketMaster.Application.Commands.Tickets.Create;
 using TicketMaster.Application.Queries.Tickets.GetAllPending;
 using TicketMaster.Application.Queries.Tickets.GetByGuid;
 
@@ -25,20 +24,7 @@ namespace TicketMaster.API.Controllers
             var result = await _mediatr.Send(query);
 
             // use result pattern
-            if (result is null) { return NotFound(); }
-
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateTicketCommand command)
-        {
-            var result = await _mediatr.Send(command);
-            if (!result.IsSuccess)
-            {
-                // use result pattern
-                return BadRequest(result.Error);
-            }
+            if (result.IsFailure) { return NotFound(result); }
 
             return Ok(result);
         }
@@ -52,7 +38,7 @@ namespace TicketMaster.API.Controllers
             if (!result.IsSuccess)
             {
                 // use result pattern
-                return BadRequest(result.Error);
+                return BadRequest(result);
             }
 
             return Ok(result);
@@ -63,11 +49,6 @@ namespace TicketMaster.API.Controllers
         {
             var query = new GetAllPendingQuery();
             var result = await _mediatr.Send(query);
-
-            if (result is null)
-            {
-                return NotFound();
-            }
 
             return Ok(result);
         }

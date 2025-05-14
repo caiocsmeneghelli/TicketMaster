@@ -13,5 +13,11 @@ namespace TicketMaster.Domain.Entities
         public Payment Payment { get; private set; }
         public List<Ticket> Tickets { get; private set; }
         public decimal TotalValue { get; private set; }
+
+        public void SetPayment(Payment payment)
+        {
+            GuidPayment = payment.Guid;
+            Payment = payment;
+        }
     }
 }
