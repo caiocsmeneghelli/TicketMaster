@@ -5,7 +5,7 @@ using TicketMaster.Domain.Entities;
 
 namespace TicketMaster.Application.Commands.OrderRequests.Create
 {
-    public class CreateOrderRequestCommandHandler : IRequestHandler<CreateOrderRequestCommand, Result>
+    public class CreateOrderRequestCommandHandler : IRequestHandler<CreateOrderRequestCommand, Result<Guid>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,7 +14,7 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result> Handle(CreateOrderRequestCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(CreateOrderRequestCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -24,14 +24,14 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
                 if (movieSesion is null)
                 {
                     await _unitOfWork.Rollback();
-                    return Result.Failure("Sessão de filme não encontrada.");
+                    return Result<Guid>.Failure("Sessão de filme não encontrada.");
                 }
 
                 bool isAvailable = movieSesion.IsAvailable(request.Tickets.Count);
                 if(!isAvailable)
                 {
                     await _unitOfWork.Rollback();
-                    return Result.Failure("Ingressos não disponíveis.");
+                    return Result<Guid>.Failure("Ingressos não disponíveis.");
                 }
 
                 decimal totalValue = movieSesion.TicketValue * request.Tickets.Count;
@@ -57,7 +57,7 @@ namespace TicketMaster.Application.Commands.OrderRequests.Create
             }catch(Exception ex)
             {
                 await _unitOfWork.Rollback();
-                return Result.Failure("Erro ao criar pedido de compra: " + ex.Message);
+                return Result<Guid>.Failure("Erro ao criar pedido de compra: " + ex.Message);
             }
         }
     }

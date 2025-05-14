@@ -4,11 +4,10 @@ using TicketMaster.Domain.Common;
 
 namespace TicketMaster.Application.Commands.OrderRequests.Create
 {
-    public class CreateOrderRequestCommand : IRequest<Result>
+    public class CreateOrderRequestCommand : IRequest<Result<Guid>>
     {
         public Guid GuidMovieSession { get; set; }
         public List<TicketDto>? Tickets { get; set; }
-        // Change?
         public  PaymentDto? Payment { get; set; }
     }
 }

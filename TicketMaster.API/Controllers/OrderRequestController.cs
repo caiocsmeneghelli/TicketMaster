@@ -1,6 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TicketMaster.API.Common;
 using TicketMaster.Application.Commands.OrderRequests.Create;
+using TicketMaster.Domain.Common;
 
 namespace TicketMaster.API.Controllers
 {
@@ -29,12 +31,11 @@ namespace TicketMaster.API.Controllers
         public async Task<IActionResult> Create(CreateOrderRequestCommand command)
         {
             var result = await _mediatr.Send(command);
-            if (!result.IsSuccess)
+            if (result.IsFailure)
             {
-                // use result pattern
-                return BadRequest(result);
+                return BadRequest(ApiResponse<Guid>.FromResult(result));
             }
-            return Ok(result);
+            return Ok(ApiResponse<Guid>.FromResult(result));
         }
 
         [HttpPut]
