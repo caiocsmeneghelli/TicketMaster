@@ -43,8 +43,8 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    GuidPayment = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    TotalValue = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    GuidPayment = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    TotalValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {

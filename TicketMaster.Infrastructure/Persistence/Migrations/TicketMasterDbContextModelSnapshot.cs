@@ -122,11 +122,11 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("GuidPayment")
+                    b.Property<Guid?>("GuidPayment")
                         .HasColumnType("char(36)");
 
                     b.Property<decimal>("TotalValue")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Guid");
 

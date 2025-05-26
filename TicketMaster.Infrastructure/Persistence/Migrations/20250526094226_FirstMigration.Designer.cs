@@ -12,7 +12,7 @@ using TicketMaster.Infrastructure.Persistence;
 namespace TicketMaster.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TicketMasterDbContext))]
-    [Migration("20250513143610_FirstMigration")]
+    [Migration("20250526094226_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -125,11 +125,11 @@ namespace TicketMaster.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("GuidPayment")
+                    b.Property<Guid?>("GuidPayment")
                         .HasColumnType("char(36)");
 
                     b.Property<decimal>("TotalValue")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Guid");
 
