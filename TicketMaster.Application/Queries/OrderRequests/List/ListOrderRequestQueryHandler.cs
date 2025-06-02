@@ -24,11 +24,7 @@ namespace TicketMaster.Application.Queries.OrderRequests.List
 
         public async Task<Result<PagedResult<OrderRequest>>> Handle(ListOrderRequestQuery request, CancellationToken cancellationToken)
         {
-            var pageRequest = request.PageRequest ?? new PageRequest
-            {
-                PageSize = 10, // Default page size
-                PageNumber = 1 // Default page number
-            };
+            var pageRequest = request.PageRequest;
 
             var response = await _orderRequestRepository.ListAsync(pageRequest);
             var result = new PagedResult<OrderRequest>(response, pageRequest.PageNumber, pageRequest.PageSize);

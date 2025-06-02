@@ -34,7 +34,10 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
 
         public async Task<List<OrderRequest>> ListAsync(PageRequest pageRequest)
         {
-            var query = _ticketMasterDbContext.OrderRequests.AsQueryable();
+            var query = _ticketMasterDbContext.OrderRequests
+                .Include(or => or.Payment)
+                .Include(or => or.Tickets);
+                
             return await query.Skip((pageRequest.PageNumber - 1) * pageRequest.PageSize).Take(pageRequest.PageSize).ToListAsync();
         }
     }
