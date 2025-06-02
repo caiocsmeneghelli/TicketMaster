@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketMaster.Domain.Common;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TicketMaster.Infrastructure.Persistence.Repositories
 {
@@ -29,9 +32,10 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<OrderRequest>> ListAsync()
+        public async Task<List<OrderRequest>> ListAsync(PageRequest pageRequest)
         {
-            throw new NotImplementedException();
+            var query = _ticketMasterDbContext.OrderRequests.AsQueryable();
+            return await query.Skip((pageRequest.PageNumber - 1) * pageRequest.PageSize).Take(pageRequest.PageSize).ToListAsync();
         }
     }
 }

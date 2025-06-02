@@ -2,7 +2,10 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.API.Common;
 using TicketMaster.Application.Commands.OrderRequests.Create;
+using TicketMaster.Application.Helpers.Pagination;
+using TicketMaster.Application.Queries.OrderRequests.List;
 using TicketMaster.Domain.Common;
+using TicketMaster.Domain.Entities;
 
 namespace TicketMaster.API.Controllers
 {
@@ -18,13 +21,17 @@ namespace TicketMaster.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(){
+        public async Task<IActionResult> GetAll()
+        {
             return Ok();
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> List(){
-            return Ok();
+        public async Task<IActionResult> List([FromQuery] PageRequest pageRequest)
+        {
+            var command = new ListOrderRequestQuery { PageRequest = pageRequest };
+            var result = await _mediatr.Send(command);
+            return Ok(ApiResponse<PagedResult<OrderRequest>>.FromResult(result));
         }
 
         [HttpPost]
@@ -39,7 +46,8 @@ namespace TicketMaster.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Cancel(){
+        public async Task<IActionResult> Cancel()
+        {
             return Ok();
         }
     }
