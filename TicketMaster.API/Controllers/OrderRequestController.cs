@@ -4,6 +4,7 @@ using TicketMaster.API.Common;
 using TicketMaster.Application.Commands.OrderRequests.Create;
 using TicketMaster.Application.Helpers.Pagination;
 using TicketMaster.Application.Queries.OrderRequests.List;
+using TicketMaster.Application.ViewModels.OrderRequests;
 using TicketMaster.Domain.Common;
 using TicketMaster.Domain.Entities;
 
@@ -31,7 +32,7 @@ namespace TicketMaster.API.Controllers
         {
             var command = new ListOrderRequestQuery { PageRequest = pageRequest };
             var result = await _mediatr.Send(command);
-            return Ok(ApiResponse<PagedResult<OrderRequest>>.FromResult(result));
+            return Ok(ApiResponse<PagedResult<OrderRequestViewModel>>.FromResult(result));
         }
 
         [HttpPost]
