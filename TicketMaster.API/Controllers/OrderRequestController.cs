@@ -21,12 +21,6 @@ namespace TicketMaster.API.Controllers
             _mediatr = mediatr;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok();
-        }
-
         [HttpGet("list")]
         public async Task<IActionResult> List([FromQuery] PageRequest pageRequest)
         {

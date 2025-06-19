@@ -23,9 +23,21 @@ namespace TicketMaster.API.Common
             }
         }
 
+        public ApiResponse(List<T> data)
+        {
+            Success = true;
+            Data = (T)(object)data;
+            Errors = new List<string>();
+        }
+
         public static ApiResponse<T> FromResult(Result<T> result)
         {
             return new ApiResponse<T>(result);
+        }
+
+        public static ApiResponse<T> FromList(List<T> data)
+        {
+            return new ApiResponse<T>(data);
         }
     }
 } 
