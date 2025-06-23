@@ -1,3 +1,4 @@
+using TicketMaster.Application.Helpers.Pagination;
 using TicketMaster.Domain.Common;
 
 namespace TicketMaster.API.Common
@@ -23,10 +24,17 @@ namespace TicketMaster.API.Common
             }
         }
 
-        public ApiResponse(List<T> data)
+        public ApiResponse(T data)
         {
             Success = true;
-            Data = (T)(object)data;
+            Data = data;
+            Errors = new List<string>();
+        }
+
+        public ApiResponse(PagedResult<T> result)
+        {
+            Success = true;
+            Data = (T)(object)result;
             Errors = new List<string>();
         }
 
@@ -35,7 +43,7 @@ namespace TicketMaster.API.Common
             return new ApiResponse<T>(result);
         }
 
-        public static ApiResponse<T> FromList(List<T> data)
+        public static ApiResponse<T> FromObject(T data)
         {
             return new ApiResponse<T>(data);
         }

@@ -11,7 +11,7 @@ using TicketMaster.Domain.Entities;
 
 namespace TicketMaster.Application.Queries.OrderRequests.List
 {
-    public class ListOrderRequestQuery : IRequest<Result<PagedResult<OrderRequestViewModel>>>
+    public class ListOrderRequestQuery : IRequest<PagedResult<OrderRequestViewModel>>
     {
         public PageRequest PageRequest { get; set; }
     }

@@ -15,7 +15,7 @@ using TicketMaster.Domain.Repositories;
 
 namespace TicketMaster.Application.Queries.OrderRequests.List
 {
-    public class ListOrderRequestQueryHandler : IRequestHandler<ListOrderRequestQuery, Result<PagedResult<OrderRequestViewModel>>>
+    public class ListOrderRequestQueryHandler : IRequestHandler<ListOrderRequestQuery, PagedResult<OrderRequestViewModel>>
     {
         private readonly IOrderRequestRepository _orderRequestRepository;
         private readonly IMapper _mapper;
@@ -26,7 +26,7 @@ namespace TicketMaster.Application.Queries.OrderRequests.List
             _mapper = mapper;
         }
 
-        public async Task<Result<PagedResult<OrderRequestViewModel>>> Handle(ListOrderRequestQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<OrderRequestViewModel>> Handle(ListOrderRequestQuery request, CancellationToken cancellationToken)
         {
             var pageRequest = request.PageRequest;
 
@@ -34,7 +34,7 @@ namespace TicketMaster.Application.Queries.OrderRequests.List
             var vwModel = _mapper.Map<List<OrderRequestViewModel>>(response);
 
             var result = new PagedResult<OrderRequestViewModel>(vwModel, pageRequest.PageNumber, pageRequest.PageSize);
-            return Result<PagedResult<OrderRequestViewModel>>.Success(result);
+            return result;
         }
     }
 }

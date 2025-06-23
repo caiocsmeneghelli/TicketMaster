@@ -26,7 +26,7 @@ namespace TicketMaster.API.Controllers
         {
             var command = new ListOrderRequestQuery { PageRequest = pageRequest };
             var result = await _mediatr.Send(command);
-            return Ok(ApiResponse<PagedResult<OrderRequestViewModel>>.FromResult(result));
+            return Ok(ApiResponse<PagedResult<OrderRequestViewModel>>.FromObject(result));
         }
 
         [HttpPost]

@@ -5,6 +5,7 @@ using TicketMaster.API.Common;
 using TicketMaster.Application.Commands.Movies.Create;
 using TicketMaster.Application.Queries.Movies.GetAll;
 using TicketMaster.Application.Queries.Movies.GetAllActive;
+using TicketMaster.Application.ViewModels.Movies;
 using TicketMaster.Domain.Common;
 
 namespace TicketMaster.API.Controllers
@@ -25,7 +26,7 @@ namespace TicketMaster.API.Controllers
         {
             var query = new GetAllMoviesQuery();
             var result = await _mediatr.Send(query);
-            return Ok(result);
+            return Ok(ApiResponse<List<MovieViewModel>>.FromObject(result));
         }
 
         [HttpGet("active")]
@@ -33,7 +34,7 @@ namespace TicketMaster.API.Controllers
         {
             var query = new GetAllMoviesActiveQuery(name);
             var result = await _mediatr.Send(query);
-            return Ok(result);
+            return Ok(ApiResponse<List<MovieViewModel>>.FromObject(result));
         }
 
         [HttpPost]
