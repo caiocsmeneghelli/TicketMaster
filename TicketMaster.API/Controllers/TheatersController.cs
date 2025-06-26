@@ -23,21 +23,14 @@ namespace TicketMaster.API.Controllers
         public async Task<IActionResult> Get()
         {
             var result = await _mediatr.Send(new GetAllTheatersQuery());
-            return Ok(result);
+            return this.ToApiResponse(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<int>>> Create([FromBody] CreateTheaterCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateTheaterCommand command)
         {
             var result = await _mediatr.Send(command);
-            var response = ApiResponse<int>.FromResult(result);
-
-            if (!response.Success)
-            {
-                return BadRequest(response);
-            }
-
-            return Ok(response);
+            return this.ToApiResponse(result);
         }
     }
 }

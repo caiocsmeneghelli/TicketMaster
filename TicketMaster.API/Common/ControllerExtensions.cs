@@ -9,7 +9,7 @@ namespace TicketMaster.API.Common
         public static IActionResult ToApiResponse<T>(this ControllerBase controller, Result<T> result)
         {
             var response = new ApiResponse<T>(result);
-            if(!result.IsSuccess)
+            if(result.IsFailure)
             {
                 return controller.BadRequest(response);
             }

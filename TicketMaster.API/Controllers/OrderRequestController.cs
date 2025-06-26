@@ -26,20 +26,18 @@ namespace TicketMaster.API.Controllers
         {
             var command = new ListOrderRequestQuery { PageRequest = pageRequest };
             var result = await _mediatr.Send(command);
-            return Ok(ApiResponse<PagedResult<OrderRequestViewModel>>.FromObject(result));
+            return this.ToApiResponse(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateOrderRequestCommand command)
         {
             var result = await _mediatr.Send(command);
-            if (result.IsFailure)
-            {
-                return BadRequest(ApiResponse<Guid>.FromResult(result));
-            }
-            return Ok(ApiResponse<Guid>.FromResult(result));
+            return this.ToApiResponse(result);
         }
 
+
+        // to-do
         [HttpPut]
         public async Task<IActionResult> Cancel()
         {

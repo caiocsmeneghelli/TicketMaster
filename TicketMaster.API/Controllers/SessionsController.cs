@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.API.Common;
 using TicketMaster.Application.Commands.MovieSessions.Create;
@@ -27,7 +28,7 @@ namespace TicketMaster.API.Controllers
         {
             var query = new GetAllMovieSessionsQuery();
             var result = await _mediatr.Send(query);
-            return Ok(result);
+            return this.ToApiResponse(result);
         }
 
         [HttpGet("movie/{idMovie}/by-date")]
@@ -38,7 +39,7 @@ namespace TicketMaster.API.Controllers
             query.Date = date;
 
             var result = await _mediatr.Send(query);
-            return Ok(result);
+            return this.ToApiResponse(result);
         }
 
         [HttpGet("active/movie/{idMovie}")]
@@ -47,7 +48,7 @@ namespace TicketMaster.API.Controllers
             var query = new GetAllMovieSessionsAvailableByMovieQuery();
             query.IdMovie = idMovie;
             var results = await _mediatr.Send(query);
-            return Ok(results);
+            return this.ToApiResponse(results);
         }
 
         [HttpGet("active")]
@@ -55,19 +56,14 @@ namespace TicketMaster.API.Controllers
         {
             var query = new GetAllMovieSessionsAvailableQuery();
             var result = await _mediatr.Send(query);
-            return Ok(result);
+            return this.ToApiResponse(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<int>>> Create([FromBody] CreateMovieSessionCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateMovieSessionCommand command)
         {
             var result = await _mediatr.Send(command);
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result);
+            return this.ToApiResponse(result);
         }
     }
 }
