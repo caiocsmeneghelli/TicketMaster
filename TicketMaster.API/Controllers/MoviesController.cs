@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.API.Common;
 using TicketMaster.Application.Commands.Movies.Create;
@@ -26,7 +25,7 @@ namespace TicketMaster.API.Controllers
         {
             var query = new GetAllMoviesQuery();
             var result = await _mediatr.Send(query);
-            return Ok(ApiResponse<List<MovieViewModel>>.FromObject(result));
+            return this.ToApiResponse(result);
         }
 
         [HttpGet("active")]
@@ -34,21 +33,14 @@ namespace TicketMaster.API.Controllers
         {
             var query = new GetAllMoviesActiveQuery(name);
             var result = await _mediatr.Send(query);
-            return Ok(ApiResponse<List<MovieViewModel>>.FromObject(result));
+            return this.ToApiResponse(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<int>>> CreateMovie([FromBody] CreateMovieCommand command)
+        public async Task<IActionResult> CreateMovie([FromBody] CreateMovieCommand command)
         {
-            var result = await _mediatr.Send(command);
-            var response = ApiResponse<int>.FromResult(result);
-
-            if (!response.Success)
-            {
-                return BadRequest(response);
-            }
-
-            return Ok(response);
+            Result<int> result = await _mediatr.Send(command);
+            return this.ToApiResponse(result);
         }
     }
 }
