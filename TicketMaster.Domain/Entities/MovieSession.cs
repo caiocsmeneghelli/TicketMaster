@@ -19,6 +19,7 @@ namespace TicketMaster.Domain.Entities
             ImageAttribute = imageAttribute;
             AudioAttribute = audioAttribute;
             TicketValue = ticketValue;
+            Active = true;
         }
 
         public Guid Guid { get; private set; }
@@ -31,6 +32,7 @@ namespace TicketMaster.Domain.Entities
         public EImageAttribute ImageAttribute { get; private set; }
         public EAudioAttribute AudioAttribute { get; private set; }
         public decimal TicketValue { get; private set; }
+        public bool Active { get; private set; }
 
         public List<Ticket> Tickets { get; private set; }
 
@@ -42,12 +44,21 @@ namespace TicketMaster.Domain.Entities
 
         public bool Available()
         {
-            return ReservedSeats < Auditorium.TotalSeats;
+            return ReservedSeats < Auditorium.TotalSeats && Active;
         }
 
         public bool IsAvailable(int seats)
         {
-            return ReservedSeats + seats <= Auditorium.TotalSeats;
+            return (ReservedSeats + seats <= Auditorium.TotalSeats) && Active;
+        }
+
+        public void Cancel()
+        {
+            Active = false;
+            foreach (var ticket in Tickets)
+            {
+                ticket.Cancel();
+            }
         }
     }
 }

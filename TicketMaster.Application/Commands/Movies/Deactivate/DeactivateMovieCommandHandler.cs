@@ -29,8 +29,16 @@ namespace TicketMaster.Application.Commands.Movies.Deactivate
             await _unitOfWork.BeginTransaction();
 
             movie.Deactivate();
-            
             await _unitOfWork.CompleteAsync();
+
+            var movieSessions = await _unitOfWork.MovieSessionRepository
+                .GetAllAvailableByMovieWithTickets(request.Id);
+            foreach (var session in movieSessions)
+            {
+                session.Cancel();
+                await _unitOfWork.CompleteAsync();
+            }
+
             await _unitOfWork.CommitAsync();
 
             return Result<int>.Success(movie.Id);

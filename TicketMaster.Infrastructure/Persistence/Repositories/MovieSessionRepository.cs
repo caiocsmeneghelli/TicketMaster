@@ -47,17 +47,26 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
 
         public async Task<List<MovieSession>> GetAllAvailableByMovieAsync(int idMovie)
         {
-            var results = await _context
+            IQueryable<MovieSession> query = _context
                 .MovieSessions
                 .Where(reg => reg.IdMovie == idMovie)
                 .Include(reg => reg.Movie)
                 .Include(reg => reg.Auditorium)
                 .ThenInclude(reg => reg.Theater)
-                .AsNoTracking()
-                .ToListAsync();
-
+                .AsNoTracking();
+            
+            var results =  await query.ToListAsync();
+             
             return results.Where(reg => reg.Available())
                 .ToList();
+        }
+
+        public async Task<List<MovieSession>> GetAllAvailableByMovieWithTickets(int idMovie)
+        {
+            return await _context
+                .MovieSessions.Where(reg => reg.IdMovie == idMovie)
+                .Include(reg => reg.Tickets)
+                .ToListAsync();
         }
 
         public async Task<List<MovieSession>> GetAllByMovieAndDate(int idMovie, DateTime dateTime)
