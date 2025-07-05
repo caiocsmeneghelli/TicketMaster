@@ -30,12 +30,20 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             return await _context.Movies
                 .Where(m => m.ReleaseDate < DateTime.Now)
                 .Where(m => m.Active)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<List<Movie>> GetAllAsync()
         {
-            return await _context.Movies.ToListAsync();
+            return await _context.Movies.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<Movie?> GetByIdAsync(int id)
+        {
+            return await _context.Movies
+                .Where(m => m.Id == id)
+                .FirstOrDefaultAsync();
         }
     }
 }

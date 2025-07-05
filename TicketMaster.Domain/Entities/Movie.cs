@@ -20,5 +20,10 @@
         public string? Description { get; private set; }
         public string? Genre { get; private set; }
         public List<MovieSession> MovieSessions { get; private set; }
+
+        public void Deactivate()
+        {
+            Active = false;
+        }
     }
 }

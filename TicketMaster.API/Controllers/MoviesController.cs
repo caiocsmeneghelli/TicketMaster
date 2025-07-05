@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.API.Common;
 using TicketMaster.Application.Commands.Movies.Create;
+using TicketMaster.Application.Commands.Movies.Deactivate;
 using TicketMaster.Application.Queries.Movies.GetAll;
 using TicketMaster.Application.Queries.Movies.GetAllActive;
 using TicketMaster.Application.ViewModels.Movies;
@@ -40,6 +41,14 @@ namespace TicketMaster.API.Controllers
         public async Task<IActionResult> CreateMovie([FromBody] CreateMovieCommand command)
         {
             Result<int> result = await _mediatr.Send(command);
+            return this.ToApiResponse(result);
+        }
+
+        [HttpPut("deactivate/{id}")]
+        public async Task<IActionResult> InactivateMovie(int id)
+        {
+            var command = new DeactivateMovieCommand(id);
+            Result result = await _mediatr.Send(command);
             return this.ToApiResponse(result);
         }
     }

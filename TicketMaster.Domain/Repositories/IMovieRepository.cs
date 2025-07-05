@@ -7,5 +7,6 @@ namespace TicketMaster.Domain.Repositories
         Task<List<Movie>> GetAllAsync();
         Task<List<Movie>> GetAllActiveAsync(string? query);
         Task<int> CreateAsync(Movie movie);
+        Task<Movie?> GetByIdAsync(int id);
     }
 }

@@ -11,13 +11,14 @@ namespace TicketMaster.Infrastructure.Persistence
         private IDbContextTransaction _transaction;
 
         public UnitOfWork(ITicketRepository ticketRepository, IPaymentRepository paymentRepository,
-            IMovieSessionRepository movieSessionRepository, IOrderRequestRepository orderRequestRepository, 
-            TicketMasterDbContext dbContext)
+            IMovieSessionRepository movieSessionRepository, IOrderRequestRepository orderRequestRepository,
+             IMovieRepository movieRepository, TicketMasterDbContext dbContext)
         {
             TicketRepository = ticketRepository;
             PaymentRepository = paymentRepository;
             MovieSessionRepository = movieSessionRepository;
             OrderRequestRepository = orderRequestRepository;
+            MovieRepository = movieRepository;
             _dbContext = dbContext;
         }
 
@@ -25,6 +26,7 @@ namespace TicketMaster.Infrastructure.Persistence
         public IPaymentRepository PaymentRepository {get;}
         public IMovieSessionRepository MovieSessionRepository {get;}
         public IOrderRequestRepository OrderRequestRepository {get;}
+        public IMovieRepository MovieRepository { get; }
 
         public async Task BeginTransaction()
         {
