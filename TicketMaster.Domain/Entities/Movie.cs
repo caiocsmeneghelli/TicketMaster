@@ -1,9 +1,23 @@
-﻿namespace TicketMaster.Domain.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace TicketMaster.Domain.Entities
 {
     public class Movie
     {
         public Movie(string? title, string? director, DateTime releaseDate, string? description, string? genre)
         {
+            Title = title;
+            Director = director;
+            ReleaseDate = releaseDate;
+            Active = true;
+            Description = description;
+            Genre = genre;
+        }
+
+        [JsonConstructor]
+        public Movie(int id, string? title, string? director, DateTime releaseDate, string? description, string? genre)
+        {
+            Id = id;
             Title = title;
             Director = director;
             ReleaseDate = releaseDate;

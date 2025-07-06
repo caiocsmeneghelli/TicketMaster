@@ -1,16 +1,19 @@
 ﻿using MediatR;
 using TicketMaster.Application.UnitOfWork;
 using TicketMaster.Domain.Common;
+using TicketMaster.Domain.Repositories;
 
 namespace TicketMaster.Application.Commands.Movies.Deactivate
 {
     public class DeactivateMovieCommandHandler : IRequestHandler<DeactivateMovieCommand, Result>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICachedMovieRepository _cache;
 
-        public DeactivateMovieCommandHandler(IUnitOfWork unitOfWork)
+        public DeactivateMovieCommandHandler(IUnitOfWork unitOfWork, ICachedMovieRepository cache)
         {
             _unitOfWork = unitOfWork;
+            _cache = cache;
         }
 
         public async Task<Result> Handle(DeactivateMovieCommand request, CancellationToken cancellationToken)
@@ -26,20 +29,31 @@ namespace TicketMaster.Application.Commands.Movies.Deactivate
                 return Result.Failure("Movie is already inactive.");
             }
 
-            await _unitOfWork.BeginTransaction();
-
-            movie.Deactivate();
-            await _unitOfWork.CompleteAsync();
-
-            var movieSessions = await _unitOfWork.MovieSessionRepository
-                .GetAllAvailableByMovieWithTickets(request.Id);
-            foreach (var session in movieSessions)
+            try
             {
-                session.Cancel();
+                await _unitOfWork.BeginTransaction();
+
+                movie.Deactivate();
                 await _unitOfWork.CompleteAsync();
+
+                var movieSessions = await _unitOfWork.MovieSessionRepository
+                    .GetAllAvailableByMovieWithTickets(request.Id);
+                foreach (var session in movieSessions)
+                {
+                    session.Cancel();
+                    await _unitOfWork.CompleteAsync();
+                }
+
+                await _unitOfWork.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.Rollback();
+                return Result.Failure($"An error occurred while deactivating the movie: {ex.Message}");
             }
 
-            await _unitOfWork.CommitAsync();
+            // refresh na lista de cache
+            await _cache.RefreshActiveMovies();
 
             return Result<int>.Success(movie.Id);
         }

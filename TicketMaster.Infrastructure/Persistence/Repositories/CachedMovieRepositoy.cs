@@ -11,6 +11,8 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
         private readonly IMovieRepository _movieRepository;
         private readonly IDistributedCache _cache;
 
+        private readonly string _cacheKey = "ActiveMovies";
+
         public CachedMovieRepositoy(IMovieRepository movieRepository, IDistributedCache cache)
         {
             _movieRepository = movieRepository;
@@ -18,8 +20,7 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
         }
         public async Task<List<Movie>> GetAllActiveMovies()
         {
-            var cacheKey = "ActiveMovies";
-            var cachedMovies = await _cache.GetStringAsync(cacheKey);
+            var cachedMovies = await _cache.GetStringAsync(_cacheKey);
 
             if (!string.IsNullOrEmpty(cachedMovies))
             {
@@ -27,7 +28,25 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
             }
 
             var movies = await _movieRepository.GetAllActiveAsync(null);
+            SetCache(movies);
 
+            return movies;
+        }
+
+        public async Task RefreshActiveMovies()
+        {
+            // remove lista atual
+            ClearCache();
+
+            // buscar lista atualizada
+            var movies = await _movieRepository.GetAllActiveAsync(null);
+
+            // atualizar cache
+            SetCache(movies);
+        }
+
+        private void SetCache(List<Movie> movies)
+        {
             DateTime now = DateTime.Now;
             DateTime midnight = now.Date.AddDays(1); // 00:00 de amanhã (meia-noite de hoje)
 
@@ -36,9 +55,12 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
                 AbsoluteExpiration = midnight
             };
 
-            await _cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(movies), options);
+            _cache.SetString(_cacheKey, JsonSerializer.Serialize(movies), options);
+        }
 
-            return movies;
+        private void ClearCache()
+        {
+            _cache.Remove(_cacheKey);
         }
     }
 }

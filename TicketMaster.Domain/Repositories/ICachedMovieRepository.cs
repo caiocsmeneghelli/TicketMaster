@@ -10,5 +10,6 @@ namespace TicketMaster.Domain.Repositories
     public interface ICachedMovieRepository
     {
         Task<List<Movie>> GetAllActiveMovies();
+        Task RefreshActiveMovies();
     }
 }
