@@ -76,6 +76,8 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
                 .Where(reg => reg.IdMovie == idMovie)
                 .Where(reg => reg.SessionTime.Date == dateTime.Date)
                 .Include(reg => reg.Movie)
+                .Include(reg => reg.Auditorium)
+                .ThenInclude(a => a.Theater)
                 .AsNoTracking()
                 .ToListAsync();
         }
