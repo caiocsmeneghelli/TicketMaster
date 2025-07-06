@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TicketMaster.Application.Repositories;
 using TicketMaster.Application.UnitOfWork;
 using TicketMaster.Domain.Repositories;
 using TicketMaster.Infrastructure.Persistence;

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using TicketMaster.Application.Repositories;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 

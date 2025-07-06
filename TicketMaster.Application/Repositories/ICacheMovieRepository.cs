@@ -1,6 +1,6 @@
 using TicketMaster.Domain.Entities;
 
-namespace TicketMaster.Infrastructure.Persistence.Caching.Repositories
+namespace TicketMaster.Application.Repositories
 {
     public interface ICachedMovieRepository
     {

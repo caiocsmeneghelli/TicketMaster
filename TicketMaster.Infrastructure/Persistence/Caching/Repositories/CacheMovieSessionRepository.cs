@@ -75,4 +75,8 @@ namespace TicketMaster.Infrastructure.Persistence.Caching.Repositories
             }
         }
     }
+
+    public interface ICachedMovieSessionRepository
+    {
+    }
 }

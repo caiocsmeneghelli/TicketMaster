@@ -1,8 +1,8 @@
 using TicketMaster.Domain.Entities;
 
-namespace TicketMaster.Infrastructure.Persistence.Caching.Repositories
+namespace TicketMaster.Application.Repositories
 {
-    public interface ICachedMovieSessionRepository
+    public interface ICacheMovieSessionRepository
     {
         Task<List<MovieSession>> GetMovieByMovieAndDate(int idMovie, DateTime date);
     }
