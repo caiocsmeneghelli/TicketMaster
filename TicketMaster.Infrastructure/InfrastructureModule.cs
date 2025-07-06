@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketMaster.Application.UnitOfWork;
 using TicketMaster.Domain.Repositories;
 using TicketMaster.Infrastructure.Persistence;
@@ -20,6 +15,7 @@ namespace TicketMaster.Infrastructure
             services
                 .AddRepositories()
                 .AddUnitOfWrok()
+                .AddCache(configuration)
                 .AddPersistence(configuration);
             return services;
         }
@@ -29,7 +25,7 @@ namespace TicketMaster.Infrastructure
             var connectionString = configuration.GetConnectionString("TicketMasterCs");
             var serverVersion = ServerVersion.AutoDetect(connectionString);
             service.AddDbContext<TicketMasterDbContext>(cfg => cfg.UseMySql(connectionString, serverVersion));
-            
+
             return service;
         }
 
@@ -42,6 +38,7 @@ namespace TicketMaster.Infrastructure
             service.AddScoped<ITicketRepository, TicketRepository>();
             service.AddScoped<IPaymentRepository, PaymentRepository>();
             service.AddScoped<IOrderRequestRepository, OrderRequestRepository>();
+            service.AddScoped<ICachedMovieRepository, CachedMovieRepositoy>();
 
             return service;
         }
@@ -51,6 +48,19 @@ namespace TicketMaster.Infrastructure
             service.AddScoped<IUnitOfWork, UnitOfWork>();
             return service;
         }
-            
+
+        private static IServiceCollection AddCache(this IServiceCollection service, IConfiguration configuration)
+        {
+            string connection = configuration.GetConnectionString("Redis");
+            if (!string.IsNullOrEmpty(connection))
+            {
+                service.AddStackExchangeRedisCache(options =>
+                {
+                    options.Configuration = connection;
+                    options.InstanceName = "TicketMasterCache";
+                });
+            }
+            return service;
+        }
     }
 }
