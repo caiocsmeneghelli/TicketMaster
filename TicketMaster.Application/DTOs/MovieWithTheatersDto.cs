@@ -2,7 +2,7 @@ using TicketMaster.Domain.Entities;
 
 namespace TicketMaster.Application.DTOs
 {
-    public class MovieWithTheatersViewModel
+    public class MovieWithTheatersDto
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using TicketMaster.Application.Repositories;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 
@@ -74,9 +75,5 @@ namespace TicketMaster.Infrastructure.Persistence.Caching.Repositories
                 await _cache.RemoveAsync(cacheKey);
             }
         }
-    }
-
-    public interface ICachedMovieSessionRepository
-    {
     }
 }

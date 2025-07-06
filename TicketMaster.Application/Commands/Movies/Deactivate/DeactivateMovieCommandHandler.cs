@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using TicketMaster.Application.Repositories;
 using TicketMaster.Application.UnitOfWork;
 using TicketMaster.Domain.Common;
 using TicketMaster.Domain.Repositories;
