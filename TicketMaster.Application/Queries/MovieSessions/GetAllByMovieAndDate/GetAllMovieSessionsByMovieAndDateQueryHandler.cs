@@ -26,24 +26,8 @@ namespace TicketMaster.Application.Queries.MovieSessions.GetAllByMovieAndDate
                 return new MovieWithTheatersViewModel();
             }
 
-            var first = results.First();
-            var movieViewModel = new MovieWithTheatersViewModel
-            {
-                Id = first.Movie.Id,
-                Title = first.Movie.Title,
-                Theaters = results
-                .GroupBy(x => x.Auditorium.Theater.Id)
-                .Select(g => new TheaterWithSessionViewModel
-                {
-                    Id = g.First().Auditorium.Theater.Id,
-                    Name = g.First().Auditorium.Theater.Name,
-                    Sessions = g.Select(s => new MovieSessionGuidTimeViewModel
-                    {
-                        Guid = s.Guid,
-                        Time = s.SessionTime.ToString("HH:mm")
-                    }).ToList()
-                }).ToList()
-            };
+            var movieViewModel = new MovieWithTheatersViewModel();
+            movieViewModel.FromMovieSessions(results);
 
             return movieViewModel;
         }

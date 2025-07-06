@@ -75,6 +75,7 @@ namespace TicketMaster.Infrastructure.Persistence.Repositories
                 .MovieSessions
                 .Where(reg => reg.IdMovie == idMovie)
                 .Where(reg => reg.SessionTime.Date == dateTime.Date)
+                .Where(reg => reg.Active)
                 .Include(reg => reg.Movie)
                 .Include(reg => reg.Auditorium)
                 .ThenInclude(a => a.Theater)
