@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TicketMaster.Application.UnitOfWork;
 using TicketMaster.Domain.Repositories;
 using TicketMaster.Infrastructure.Persistence;
+using TicketMaster.Infrastructure.Persistence.Caching.Repositories;
 using TicketMaster.Infrastructure.Persistence.Repositories;
 
 namespace TicketMaster.Infrastructure
@@ -38,7 +39,7 @@ namespace TicketMaster.Infrastructure
             service.AddScoped<ITicketRepository, TicketRepository>();
             service.AddScoped<IPaymentRepository, PaymentRepository>();
             service.AddScoped<IOrderRequestRepository, OrderRequestRepository>();
-            service.AddScoped<ICachedMovieRepository, CachedMovieRepositoy>();
+            service.AddScoped<ICachedMovieRepository, CachedMovieRepository>();
             service.AddScoped<ICachedMovieSessionRepository, CachedMovieSessionRepository>();
 
             return service;

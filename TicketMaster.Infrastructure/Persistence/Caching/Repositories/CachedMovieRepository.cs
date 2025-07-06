@@ -1,19 +1,18 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using System.Text;
+using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 
-namespace TicketMaster.Infrastructure.Persistence.Repositories
+namespace TicketMaster.Infrastructure.Persistence.Caching.Repositories
 {
-    public class CachedMovieRepositoy : ICachedMovieRepository
+    public class CachedMovieRepository : ICachedMovieRepository
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IDistributedCache _cache;
 
         private readonly string _cacheKey = "ActiveMovies";
 
-        public CachedMovieRepositoy(IMovieRepository movieRepository, IDistributedCache cache)
+        public CachedMovieRepository(IMovieRepository movieRepository, IDistributedCache cache)
         {
             _movieRepository = movieRepository;
             _cache = cache;

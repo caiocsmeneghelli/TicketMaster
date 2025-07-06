@@ -1,15 +1,10 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 
-namespace TicketMaster.Infrastructure.Persistence.Repositories
+namespace TicketMaster.Infrastructure.Persistence.Caching.Repositories
 {
     public class CachedMovieSessionRepository : ICachedMovieSessionRepository
     {
