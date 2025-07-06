@@ -39,6 +39,7 @@ namespace TicketMaster.Infrastructure
             service.AddScoped<IPaymentRepository, PaymentRepository>();
             service.AddScoped<IOrderRequestRepository, OrderRequestRepository>();
             service.AddScoped<ICachedMovieRepository, CachedMovieRepositoy>();
+            service.AddScoped<ICachedMovieSessionRepository, CachedMovieSessionRepository>();
 
             return service;
         }

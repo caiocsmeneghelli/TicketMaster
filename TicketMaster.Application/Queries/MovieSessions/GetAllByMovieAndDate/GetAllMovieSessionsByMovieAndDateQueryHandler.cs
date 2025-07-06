@@ -12,16 +12,18 @@ namespace TicketMaster.Application.Queries.MovieSessions.GetAllByMovieAndDate
     public class GetAllMovieSessionsByMovieAndDateQueryHander : IRequestHandler<GetAllMovieSessionsByMovieAndDateQuery, MovieWithTheatersViewModel>
     {
         private readonly IMovieSessionRepository _repository;
+        private readonly ICachedMovieSessionRepository _cache;
 
-        public GetAllMovieSessionsByMovieAndDateQueryHander(IMovieSessionRepository repository)
+        public GetAllMovieSessionsByMovieAndDateQueryHander(IMovieSessionRepository repository, ICachedMovieSessionRepository cache)
         {
             _repository = repository;
+            _cache = cache;
         }
 
         public async Task<MovieWithTheatersViewModel> Handle(GetAllMovieSessionsByMovieAndDateQuery request, CancellationToken cancellationToken)
         {
-            var results = await _repository.GetAllByMovieAndDate(request.IdMovie, request.Date);
-            if(results == null || results.Count == 0)
+            var results = await _cache.GetMovieByMovieAndDate(request.IdMovie, request.Date);
+            if (results == null || results.Count == 0)
             {
                 return new MovieWithTheatersViewModel();
             }
