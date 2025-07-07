@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using TicketMaster.Application.DTOs;
 using TicketMaster.Application.Repositories;
 using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
@@ -18,29 +19,30 @@ namespace TicketMaster.Infrastructure.Persistence.Caching.Repositories
             _cache = cache;
         }
 
-        public async Task<List<MovieSession>> GetMovieByMovieAndDate(int idMovie, DateTime date)
+        public async Task<MovieWithTheatersDto> GetMovieByMovieAndDate(int idMovie, DateTime date)
         {
             string cacheKey = $"MovieSessions_{idMovie}_{date:yyyyMMdd}";
 
             var cachedSessions = await _cache.GetStringAsync(cacheKey);
             if (!string.IsNullOrEmpty(cachedSessions))
             {
-                var serializeOptions = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    ReferenceHandler = ReferenceHandler.Preserve,
-                    WriteIndented = true // opcional, para facilitar a leitura do JSON
-                };
-                return JsonSerializer.Deserialize<List<MovieSession>>(cachedSessions, serializeOptions);
+                return JsonSerializer.Deserialize<MovieWithTheatersDto>(cachedSessions);
             }
 
+            var result = new MovieWithTheatersDto();
             var movieSessions = await _repository.GetAllByMovieAndDate(idMovie, date);
-            SetCache(cacheKey, movieSessions);
+            if(movieSessions == null || movieSessions.Count == 0)
+            {
+                return result;
+            }
 
-            return movieSessions;
+            result.FromMovieSessions(movieSessions);
+            SetCache(cacheKey, result);
+
+            return result;
         }
 
-        private void SetCache(string cacheKey, List<MovieSession> movieSessions)
+        private void SetCache(string cacheKey, object movieSessions)
         {
             DateTime now = DateTime.Now;
             DateTime midnight = now.Date.AddDays(1); // 00:00 de amanhã (meia-noite de hoje)
@@ -50,14 +52,7 @@ namespace TicketMaster.Infrastructure.Persistence.Caching.Repositories
                 AbsoluteExpiration = midnight
             };
 
-            var serializeOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                ReferenceHandler = ReferenceHandler.Preserve,
-                WriteIndented = true // opcional, para facilitar a leitura do JSON
-            };
-
-            _cache.SetString(cacheKey, JsonSerializer.Serialize(movieSessions, serializeOptions), options);
+            _cache.SetString(cacheKey, JsonSerializer.Serialize(movieSessions), options);
         }
 
         public async void ClearCacheByMovie(int idMovie)

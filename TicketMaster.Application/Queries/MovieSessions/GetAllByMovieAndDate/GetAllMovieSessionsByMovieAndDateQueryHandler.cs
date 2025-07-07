@@ -18,16 +18,8 @@ namespace TicketMaster.Application.Queries.MovieSessions.GetAllByMovieAndDate
 
         public async Task<MovieWithTheatersDto> Handle(GetAllMovieSessionsByMovieAndDateQuery request, CancellationToken cancellationToken)
         {
-            var results = await _cache.GetMovieByMovieAndDate(request.IdMovie, request.Date);
-            if (results == null || results.Count == 0)
-            {
-                return new MovieWithTheatersDto();
-            }
-
-            var movieViewModel = new MovieWithTheatersDto();
-            movieViewModel.FromMovieSessions(results);
-
-            return movieViewModel;
+            var result = await _cache.GetMovieByMovieAndDate(request.IdMovie, request.Date);
+            return result;
         }
     }
 }
