@@ -22,6 +22,7 @@ namespace TicketMaster.Infrastructure.Persistence
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<OrderRequest> OrderRequests { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
