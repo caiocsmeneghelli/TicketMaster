@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketMaster.Application.Commands.Users
+namespace TicketMaster.Application.Commands.Users.Create
 {
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {

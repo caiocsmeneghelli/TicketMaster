@@ -9,7 +9,7 @@ using TicketMaster.Domain.Entities;
 using TicketMaster.Domain.Repositories;
 using TicketMaster.Domain.Services;
 
-namespace TicketMaster.Application.Commands.Users
+namespace TicketMaster.Application.Commands.Users.Create
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Result>
     {

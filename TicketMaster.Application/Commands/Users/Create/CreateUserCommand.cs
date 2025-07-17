@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketMaster.Domain.Common;
 
-namespace TicketMaster.Application.Commands.Users
+namespace TicketMaster.Application.Commands.Users.Create
 {
     public class CreateUserCommand : IRequest<Result>
     {
